@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d30s57i4fuwei"]
+
+[ext_resource type="Script" path="res://Scenes/Screens/Game/Managers/CurrencyManager.gd" id="1_ucpdk"]
+
+[node name="CurrencyManager" type="Node"]
+script = ExtResource("1_ucpdk")
+
+[node name="CurrencyTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="CurrencyTimer" to="." method="_on_currency_timer_timeout"]

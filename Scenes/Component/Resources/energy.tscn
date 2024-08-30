@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cs7fea70jp2cd"]
+
+[ext_resource type="Script" path="res://Scenes/Component/Resources/energy.gd" id="1_r5j01"]
+
+[node name="Energy" type="HBoxContainer"]
+script = ExtResource("1_r5j01")
+
+[node name="EnergyLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+text = "Energy: "
+fit_content = true
+autowrap_mode = 0
+
+[node name="EnergyNumber" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"

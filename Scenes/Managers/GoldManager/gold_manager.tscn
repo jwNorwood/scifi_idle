@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgydq4k58fkq2"]
+
+[ext_resource type="Script" path="res://Scenes/Screens/Game/Managers/GoldManager.gd" id="1_imibw"]
+
+[node name="GoldManager" type="Node"]
+script = ExtResource("1_imibw")
+
+[node name="GoldTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="GoldTimer" to="." method="_on_gold_timer_timeout"]

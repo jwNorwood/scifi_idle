@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://c30rrpu02xnbm"]
+
+[ext_resource type="Script" path="res://Scenes/Screens/Game/Button.gd" id="1_hylgj"]
+[ext_resource type="PackedScene" uid="uid://b3xr1t38v1jpy" path="res://Scenes/Component/Resources/Resources.tscn" id="1_lsmgf"]
+
+[node name="Game" type="Node"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game"
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Button"
+script = ExtResource("1_hylgj")
+
+[node name="Resources" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_lsmgf")]
+layout_mode = 2

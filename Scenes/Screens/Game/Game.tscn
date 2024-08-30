@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c30rrpu02xnbm"]
+
+[ext_resource type="PackedScene" uid="uid://ccaqbm2iua3hw" path="res://Scenes/Screens/Game/Managers/GameManagers.tscn" id="1_hjru0"]
+[ext_resource type="PackedScene" uid="uid://dy1mlocs8bjsb" path="res://Scenes/Component/Worker/Worker.tscn" id="2_a40h0"]
+[ext_resource type="PackedScene" uid="uid://xe86a5b8y54o" path="res://Scenes/Screens/Game/GameUi.tscn" id="2_jlhm0"]
+
+[node name="Game" type="Node"]
+
+[node name="Managers" parent="." instance=ExtResource("1_hjru0")]
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Worker" parent="Node" instance=ExtResource("2_a40h0")]
+
+[node name="GameUi" parent="." instance=ExtResource("2_jlhm0")]

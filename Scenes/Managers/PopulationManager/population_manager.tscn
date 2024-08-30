@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c750y6kexmo2u"]
+
+[ext_resource type="Script" path="res://Scenes/Screens/Game/Managers/PopulationManager.gd" id="1_txsjr"]
+
+[node name="PopulationManager" type="Node"]
+script = ExtResource("1_txsjr")
+
+[node name="PopulationTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="PopulationTimer" to="." method="_on_population_timer_timeout"]

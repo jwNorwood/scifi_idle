@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://xe86a5b8y54o"]
+
+[ext_resource type="Script" path="res://Scenes/Screens/Game/Button.gd" id="1_8x0ws"]
+[ext_resource type="Script" path="res://Scenes/Screens/Game/PopulationButton.gd" id="2_a5702"]
+[ext_resource type="Script" path="res://Scenes/Screens/Game/GoldButton.gd" id="3_7485d"]
+[ext_resource type="Script" path="res://Scenes/Screens/Game/EnergyButton.gd" id="4_pk2j2"]
+[ext_resource type="PackedScene" uid="uid://b3xr1t38v1jpy" path="res://Scenes/Component/Resources/Resources.tscn" id="5_nsfr4"]
+
+[node name="MarginContainer" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout"]
+layout_mode = 2
+text = "Game"
+
+[node name="Resources" parent="Layout" instance=ExtResource("5_nsfr4")]
+layout_mode = 2
+
+[node name="Bottom Section" type="VBoxContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="TabBar" type="TabBar" parent="Layout/Bottom Section"]
+layout_mode = 2
+tab_count = 5
+tab_0/title = "Game"
+tab_1/title = "Skills"
+tab_2/title = "Prestige"
+tab_3/title = "Bonus"
+tab_4/title = "Store"
+
+[node name="CurrencyButton" type="Button" parent="Layout/Bottom Section"]
+layout_mode = 2
+text = "Currency Button"
+script = ExtResource("1_8x0ws")
+
+[node name="PopulationButton" type="Button" parent="Layout/Bottom Section"]
+layout_mode = 2
+text = "Population Button"
+script = ExtResource("2_a5702")
+
+[node name="GoldButton" type="Button" parent="Layout/Bottom Section"]
+layout_mode = 2
+text = "Gold Button"
+script = ExtResource("3_7485d")
+
+[node name="EnergyButton" type="Button" parent="Layout/Bottom Section"]
+layout_mode = 2
+text = "Energy Button"
+script = ExtResource("4_pk2j2")

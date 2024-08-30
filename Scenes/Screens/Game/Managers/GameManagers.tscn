@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccaqbm2iua3hw"]
+
+[ext_resource type="PackedScene" uid="uid://c750y6kexmo2u" path="res://Scenes/Managers/PopulationManager/population_manager.tscn" id="1_m56eh"]
+[ext_resource type="PackedScene" uid="uid://ns3ggn4t6mc" path="res://Scenes/Managers/EnergyManager/energy_manager.tscn" id="2_fjg5c"]
+[ext_resource type="PackedScene" uid="uid://d30s57i4fuwei" path="res://Scenes/Managers/CurrencyManager/currency_manager.tscn" id="3_8hjy7"]
+[ext_resource type="PackedScene" uid="uid://dgydq4k58fkq2" path="res://Scenes/Managers/GoldManager/gold_manager.tscn" id="4_apumx"]
+
+[node name="Managers" type="Node"]
+
+[node name="PopulationManager" parent="." instance=ExtResource("1_m56eh")]
+
+[node name="EnergyManager" parent="." instance=ExtResource("2_fjg5c")]
+
+[node name="CurrencyManager" parent="." instance=ExtResource("3_8hjy7")]
+
+[node name="GoldManager" parent="." instance=ExtResource("4_apumx")]
