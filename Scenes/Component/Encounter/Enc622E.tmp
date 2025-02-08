@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv5ls7ek6nlwv"]
+
+[ext_resource type="Script" path="res://Scenes/Component/Encounter/encounter.gd" id="1_wkbnl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_is062"]
+size = Vector2(201, 202)
+
+[node name="Encounter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wkbnl")
+
+[node name="Area2D" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="ColorRect" type="ColorRect" parent="Area2D"]
+offset_right = 200.0
+offset_bottom = 200.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(100.5, 101)
+shape = SubResource("RectangleShape2D_is062")
+
+[node name="Arrows" type="Node2D" parent="."]
+unique_name_in_owner = true

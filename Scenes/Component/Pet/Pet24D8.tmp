@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://cgm5af1fidof7"]
+
+[ext_resource type="Script" path="res://Scenes/Component/Pet/Pet.gd" id="1_hylcd"]
+[ext_resource type="Script" path="res://Scenes/Component/Pet/StateMachine.gd" id="2_g4uar"]
+[ext_resource type="Texture2D" uid="uid://d18flbg8nvjn1" path="res://icon.svg" id="2_i2ioo"]
+[ext_resource type="Script" path="res://Scenes/Component/Pet/states/idle.gd" id="3_sqkqv"]
+[ext_resource type="Script" path="res://Scenes/Component/Pet/states/walk.gd" id="4_urajg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mydf"]
+size = Vector2(31, 31)
+
+[node name="Pet" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_hylcd")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("startingState")]
+script = ExtResource("2_g4uar")
+startingState = NodePath("Walk")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_sqkqv")
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource("4_urajg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.242188, 0.242188)
+texture = ExtResource("2_i2ioo")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(15.5, 15.5)
+shape = SubResource("RectangleShape2D_8mydf")
+
+[node name="StateTimer" type="Timer" parent="."]
+
+[connection signal="ready" from="StateTimer" to="." method="_on_state_timer_ready"]
+[connection signal="timeout" from="StateTimer" to="." method="_on_state_timer_timeout"]

@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://pq6wwum4d3du"]
+
+[node name="ManaBar" type="ProgressBar"]

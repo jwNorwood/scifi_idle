@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqg5epfjqehj1"]
+
+[ext_resource type="Script" path="res://Scenes/Component/Player/player.gd" id="1_1y41g"]
+[ext_resource type="PackedScene" uid="uid://ibquknluhod7" path="res://Scenes/Component/Team/Team.tscn" id="1_c2q2t"]
+[ext_resource type="PackedScene" uid="uid://cgm5af1fidof7" path="res://Scenes/Component/Pet/Pet.tscn" id="2_1su45"]
+[ext_resource type="PackedScene" uid="uid://h4k5cwh6783b" path="res://Scenes/Component/HealthBar/HealthBar.tscn" id="2_5wdly"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_1y41g")
+pet_scene = ExtResource("2_1su45")
+
+[node name="Content" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_right = 330.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="HealthBar" parent="Content" instance=ExtResource("2_5wdly")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+
+[node name="Team" parent="Content" instance=ExtResource("1_c2q2t")]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2

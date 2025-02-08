@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5wiob1qsvgme"]
+
+[ext_resource type="Script" path="res://Scenes/Screens/Overworld/overworld_manager.gd" id="1_b4646"]
+[ext_resource type="PackedScene" uid="uid://kbfxir70fqor" path="res://Scenes/Component/Encounter/Encoutner.tscn" id="2_4pktn"]
+
+[node name="Overworld" type="Node"]
+
+[node name="OverworldUi" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OverworldUi"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="Placeholder" type="Label" parent="OverworldUi/HBoxContainer"]
+layout_mode = 2
+text = "Welcome to the overworld"
+
+[node name="Items" type="Label" parent="OverworldUi/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Items will go here"
+horizontal_alignment = 1
+
+[node name="PlayerInfo" type="Label" parent="OverworldUi/HBoxContainer"]
+layout_mode = 2
+text = "Player Info Here"
+horizontal_alignment = 2
+
+[node name="Player" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Map" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="OverworldManager" type="Node" parent="."]
+script = ExtResource("1_b4646")
+encounter = ExtResource("2_4pktn")
+maxDepth = 6
+maxWidth = 2

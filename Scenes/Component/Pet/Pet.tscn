@@ -1,0 +1,86 @@
+[gd_scene load_steps=10 format=3 uid="uid://cgm5af1fidof7"]
+
+[ext_resource type="Script" path="res://Scenes/Component/Pet/Pet.gd" id="1_hylcd"]
+[ext_resource type="Script" path="res://Scenes/Component/Pet/StateMachine.gd" id="2_g4uar"]
+[ext_resource type="Texture2D" uid="uid://d18flbg8nvjn1" path="res://icon.svg" id="2_i2ioo"]
+[ext_resource type="Script" path="res://Scenes/Component/Pet/special_attack.gd" id="3_1661y"]
+[ext_resource type="Script" path="res://Scenes/Component/Pet/states/attack.gd" id="5_3b63a"]
+[ext_resource type="Script" path="res://Scenes/Component/Pet/dead.gd" id="6_vq5b6"]
+[ext_resource type="Script" path="res://Scenes/Component/Pet/victory.gd" id="7_gv2vs"]
+[ext_resource type="PackedScene" uid="uid://pq6wwum4d3du" path="res://Scenes/Component/Pet/ManaBar.tscn" id="7_idkaj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6ipo"]
+
+[node name="Pet" type="Container"]
+custom_minimum_size = Vector2(210, 230)
+anchors_preset = -1
+anchor_left = -0.116
+anchor_top = -0.141
+anchor_right = 0.048
+anchor_bottom = 0.202
+offset_left = -0.367996
+offset_top = -7.632
+offset_right = 20.704
+offset_bottom = 0.103989
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hylcd")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_g4uar")
+
+[node name="SpecialAttack" type="Node" parent="StateMachine"]
+unique_name_in_owner = true
+script = ExtResource("3_1661y")
+
+[node name="SpecialAttackTimer" type="Timer" parent="StateMachine/SpecialAttack"]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="Attack" type="Node" parent="StateMachine"]
+unique_name_in_owner = true
+script = ExtResource("5_3b63a")
+
+[node name="AttackTimer" type="Timer" parent="StateMachine/Attack"]
+one_shot = true
+
+[node name="Dead" type="Node" parent="StateMachine"]
+unique_name_in_owner = true
+script = ExtResource("6_vq5b6")
+
+[node name="Victory" type="Node" parent="StateMachine"]
+unique_name_in_owner = true
+script = ExtResource("7_gv2vs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c6ipo")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(144, 200)
+layout_mode = 2
+
+[node name="Sprite" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(144, 180)
+layout_mode = 2
+texture = ExtResource("2_i2ioo")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="ManaBar" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_idkaj")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+
+[connection signal="timeout" from="StateMachine/SpecialAttack/SpecialAttackTimer" to="StateMachine/SpecialAttack" method="_on_state_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Attack/AttackTimer" to="StateMachine/Attack" method="_on_state_timer_timeout"]

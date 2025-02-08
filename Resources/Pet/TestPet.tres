@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Pet" load_steps=5 format=3 uid="uid://bkqkmjdycroj7"]
+
+[ext_resource type="Resource" uid="uid://g46oh0ba0eyu" path="res://Resources/SpecialAttack/Fireball/Fireball.tres" id="1_jvf1s"]
+[ext_resource type="Script" path="res://Resources/Pet/pet.gd" id="1_n51xg"]
+[ext_resource type="Texture2D" uid="uid://ctlxdun2rg80" path="res://Assets/Pet/1.png" id="2_bw5ov"]
+[ext_resource type="Script" path="res://Resources/SpecialAttack/SpecialAttack.gd" id="3_dj6ns"]
+
+[resource]
+script = ExtResource("1_n51xg")
+name = "test"
+attack = 10.0
+health = 100
+speed = 1.0
+mana_max = 10
+mana_attack = 1
+mana_start = 0
+texture_card = ExtResource("2_bw5ov")
+special_attacks = Array[ExtResource("3_dj6ns")]([])
+active_special_attack = ExtResource("1_jvf1s")

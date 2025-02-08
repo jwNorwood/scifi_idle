@@ -10,18 +10,23 @@ config_version=5
 
 [application]
 
-config/name="scifi_idle"
+config/name="Pet idle game"
 run/main_scene="res://Scenes/Screens/Game/Game.tscn"
-config/features=PackedStringArray("4.2", "Mobile")
+config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 EventBus="*res://Scripts/event_bus.gd"
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
+
+[physics]
+
+2d/default_gravity=0.0
 
 [rendering]
 
