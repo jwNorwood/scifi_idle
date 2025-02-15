@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5wiob1qsvgme"]
+[gd_scene load_steps=4 format=3 uid="uid://b5wiob1qsvgme"]
 
 [ext_resource type="Script" path="res://Scenes/Screens/Overworld/overworld_manager.gd" id="1_b4646"]
 [ext_resource type="PackedScene" uid="uid://kbfxir70fqor" path="res://Scenes/Component/Encounter/Encoutner.tscn" id="2_4pktn"]
+[ext_resource type="PackedScene" uid="uid://i78lmxhc0t8l" path="res://Scenes/Component/ModalEncounterInfo/modal_encounter_info.tscn" id="3_sw3xe"]
 
 [node name="Overworld" type="Node"]
 
@@ -31,8 +32,10 @@ horizontal_alignment = 2
 [node name="Player" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 80.0
+offset_bottom = 80.0
 
 [node name="Map" type="Control" parent="."]
 unique_name_in_owner = true
@@ -51,3 +54,6 @@ script = ExtResource("1_b4646")
 encounter = ExtResource("2_4pktn")
 maxDepth = 4
 maxWidth = 2
+
+[node name="ModalEncounterInfo" parent="." instance=ExtResource("3_sw3xe")]
+unique_name_in_owner = true

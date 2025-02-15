@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://xe86a5b8y54o" path="res://Scenes/Screens/Game/GameUi.tscn" id="2_jlhm0"]
 [ext_resource type="Resource" uid="uid://bkqkmjdycroj7" path="res://Resources/Pet/TestPet.tres" id="4_rq0g8"]
-[ext_resource type="PackedScene" uid="uid://bqg5epfjqehj1" path="res://Scenes/Component/Player/player.tscn" id="5_pmdtx"]
+[ext_resource type="PackedScene" uid="uid://bqg5epfjqehj1" path="res://Scenes/Component/Player_Combat/player.tscn" id="5_pmdtx"]
 [ext_resource type="Resource" uid="uid://c7nn1snlqca1e" path="res://Resources/Pet/Test2Pet.tres" id="5_qby76"]
 [ext_resource type="Resource" uid="uid://b5y13n2nrk1qf" path="res://Resources/Pet/Test3Pet.tres" id="6_q8y75"]
 [ext_resource type="Script" path="res://Scenes/Screens/Game/Managers/game_manager.gd" id="6_vumd6"]

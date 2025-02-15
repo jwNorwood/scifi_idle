@@ -11,13 +11,19 @@ size = Vector2(64, 61)
 physics_material_override = SubResource("PhysicsMaterial_w1axq")
 script = ExtResource("1_ajrht")
 
+[node name="Button" type="Button" parent="."]
+offset_left = -40.0
+offset_top = -42.0
+offset_right = 42.0
+offset_bottom = 43.0
+
 [node name="ColorRect" type="ColorRect" parent="."]
 unique_name_in_owner = true
 offset_left = -7.0
 offset_top = -7.0
 offset_right = 7.0
 offset_bottom = 7.0
-metadata/_edit_use_anchors_ = true
+mouse_filter = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
@@ -29,12 +35,9 @@ offset_left = -26.0
 offset_top = -37.0
 offset_right = 39.0
 offset_bottom = -12.0
+mouse_filter = 2
 text = "Depth"
 
-[node name="Button" type="Button" parent="."]
-offset_left = -40.0
-offset_top = -42.0
-offset_right = 42.0
-offset_bottom = 43.0
-
 [connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

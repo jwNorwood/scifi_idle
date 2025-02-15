@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bqg5epfjqehj1"]
 
-[ext_resource type="Script" path="res://Scenes/Component/Player/player.gd" id="1_1y41g"]
+[ext_resource type="Script" path="res://Scenes/Component/Player_Combat/player.gd" id="1_1y41g"]
 [ext_resource type="PackedScene" uid="uid://ibquknluhod7" path="res://Scenes/Component/Team/Team.tscn" id="1_c2q2t"]
 [ext_resource type="PackedScene" uid="uid://cgm5af1fidof7" path="res://Scenes/Component/Pet/Pet.tscn" id="2_1su45"]
 [ext_resource type="PackedScene" uid="uid://h4k5cwh6783b" path="res://Scenes/Component/HealthBar/HealthBar.tscn" id="2_5wdly"]

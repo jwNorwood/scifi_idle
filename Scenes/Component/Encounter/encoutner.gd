@@ -11,6 +11,9 @@ var depth: int = 0
 var nodeType
 enum encounters { WILD, TRAINER, MYSTERY, SHOP } 
 
+signal encounter_selected(id: int)
+signal encounter_hovered(id: int)
+
 func getColor():
 	# return color based on encounter type and nodeType
 	match  nodeType:
@@ -72,9 +75,20 @@ func getRelativePosition(childPosition: Vector2):
 	var relativePosition = childPosition - currentNodePosition
 	return relativePosition
 
-
 func getPosition():
 	return get_global_position()
 
 func _on_sleeping_state_changed():
 	drawArrows()
+
+func enterEncounter():
+	# based on details, enter scene
+	pass
+
+
+func _on_button_pressed() -> void:
+	encounter_selected.emit(id)
+
+
+func _on_button_mouse_entered() -> void:
+	encounter_hovered.emit(id)

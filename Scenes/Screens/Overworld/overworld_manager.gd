@@ -6,6 +6,7 @@ extends Node
 
 var storedWorld
 @onready var map = %Map
+@onready var modal = %ModalEncounterInfo
 
 var levelTree = {
 	"type": "start",
@@ -29,7 +30,6 @@ func _ready():
 		storedWorld = world
 		displayWorld(world)
 		drawPaths()
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -88,6 +88,14 @@ func recursiveSearch(tree, target):
 		for child in tree.children:
 			return recursiveSearch(child, target)
 
+func selectedEncounter(id):
+	print("selected: ", id)
+	modal.setTitle(str(id))
+	modal.setDescription(str(id))
+
+func hoveredEncounter(id):
+	print("hovered: ", id)
+
 func recursiveAdd(tree):
 	# Create the node
 	if (tree.added):
@@ -100,6 +108,8 @@ func recursiveAdd(tree):
 		newNode.childNodes = tree.children
 		newNode.id = tree.id
 		newNode.depth = tree.depth
+		newNode.encounter_selected.connect(selectedEncounter)
+		newNode.encounter_hovered.connect(hoveredEncounter)
 		
 		# Add the node to the scene
 		map.add_child(newNode)
