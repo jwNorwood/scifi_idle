@@ -1,4 +1,5 @@
 extends RigidBody2D
+class_name Encounter
 
 var childNodes: Array = []
 var id: int
@@ -11,7 +12,7 @@ var depth: int = 0
 var nodeType
 enum encounters { WILD, TRAINER, MYSTERY, SHOP } 
 
-signal encounter_selected(id: int)
+signal encounter_selected(encounter: Encounter)
 signal encounter_hovered(id: int)
 
 func getColor():
@@ -83,12 +84,14 @@ func _on_sleeping_state_changed():
 
 func enterEncounter():
 	# based on details, enter scene
+	print("now entering the encounter")
+	#SceneManager.change_scene('res://Scenes/Screens/Overworld/Overworld.tscn')
+	SceneManager.change_scene('res://Scenes/Screens/Combat/Combat.tscn')	
 	pass
 
-
 func _on_button_pressed() -> void:
-	encounter_selected.emit(id)
-
+	encounter_selected.emit(self)
 
 func _on_button_mouse_entered() -> void:
 	encounter_hovered.emit(id)
+	print("position: ", getPosition())

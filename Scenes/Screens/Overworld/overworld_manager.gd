@@ -5,8 +5,14 @@ extends Node
 @export var maxWidth: int = 5
 
 var storedWorld
+var spawnLocation
+var initialMove = true
+var currentEncounter: Encounter
+var playerMoving = false
+
 @onready var map = %Map
 @onready var modal = %ModalEncounterInfo
+@onready var player: OverworldPlayer = %Player
 
 var levelTree = {
 	"type": "start",
@@ -21,7 +27,7 @@ enum encounters { WILD, TRAINER, MYSTERY, SHOP }
 # Called when the node enters the scene tree for the first time.
 
 func _ready():
-	pass # Replace with function body.
+	player.travel_finished.connect(playerFinishedTravel)
 	if (storedWorld):
 		displayWorld({})
 	else:
@@ -31,17 +37,24 @@ func _ready():
 		displayWorld(world)
 		drawPaths()
 
+func playerFinishedTravel():
+	print("arived")
+	playerMoving = false
+	currentEncounter.enterEncounter()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if (!initialMove):
+		return
+	if (!spawnLocation):
+		spawnLocation = map.get_child(0)
+		currentEncounter = map.get_child(0)
+	if (spawnLocation):
+		player.global_position = spawnLocation.getPosition()
 
 func randomEncounter():
 	return encounters.values().pick_random()
 
-# world is a graph with a single entry point and single exit point
-# graph has no dead ends
-# a node can have up to two children
-# a node can have multipule parents
 var id = 0 
 
 func createNewNode(currentDepth: int):
@@ -88,13 +101,19 @@ func recursiveSearch(tree, target):
 		for child in tree.children:
 			return recursiveSearch(child, target)
 
-func selectedEncounter(id):
-	print("selected: ", id)
-	modal.setTitle(str(id))
-	modal.setDescription(str(id))
+func selectedEncounter(encounter: Encounter):
+	if(playerMoving):
+		return
+	print("selected: ", encounter.id)
+	modal.setTitle(str(encounter.id))
+	modal.setDescription(str(encounter.id))
+	initialMove = false
+	playerMoving = true
+	player.travelToEncounter(encounter.id, encounter.global_position)
+	currentEncounter = encounter
 
-func hoveredEncounter(id):
-	print("hovered: ", id)
+func hoveredEncounter(hoveredId):
+	print("hovered: ", hoveredId)
 
 func recursiveAdd(tree):
 	# Create the node

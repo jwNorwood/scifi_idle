@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Pet idle game"
-run/main_scene="res://Scenes/Screens/Game/Game.tscn"
+run/main_scene="res://Scenes/Screens/Combat/Combat.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 

@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://c30rrpu02xnbm"]
+
+[ext_resource type="PackedScene" uid="uid://bqg5epfjqehj1" path="res://Scenes/Component/Player_Combat/player.tscn" id="1_mgmfq"]
+[ext_resource type="Resource" uid="uid://c7nn1snlqca1e" path="res://Resources/Pet/Test2Pet.tres" id="2_w8ikl"]
+[ext_resource type="Resource" uid="uid://b5y13n2nrk1qf" path="res://Resources/Pet/Test3Pet.tres" id="3_x2d47"]
+[ext_resource type="Resource" uid="uid://bkqkmjdycroj7" path="res://Resources/Pet/TestPet.tres" id="4_u4ych"]
+[ext_resource type="PackedScene" uid="uid://xe86a5b8y54o" path="res://Scenes/Screens/Combat/CombatUi.tscn" id="5_1tkos"]
+[ext_resource type="Script" path="res://Scenes/Screens/Combat/Managers/combatManager.gd" id="6_vsb8f"]
+
+[node name="Game" type="Node"]
+
+[node name="Game Elements" type="Node" parent="."]
+
+[node name="Player" parent="Game Elements" groups=["player"] instance=ExtResource("1_mgmfq")]
+position = Vector2(404, 368)
+team = Array[Resource]([ExtResource("2_w8ikl"), ExtResource("3_x2d47")])
+
+[node name="Player2" parent="Game Elements" groups=["player"] instance=ExtResource("1_mgmfq")]
+position = Vector2(404, 368)
+team = Array[Resource]([ExtResource("2_w8ikl"), ExtResource("3_x2d47")])
+
+[node name="Enemy" parent="Game Elements" groups=["enemy"] instance=ExtResource("1_mgmfq")]
+position = Vector2(413, 29)
+team = Array[Resource]([ExtResource("4_u4ych"), ExtResource("4_u4ych")])
+targetNode = "player"
+reverseOrder = true
+
+[node name="GameUi" parent="." instance=ExtResource("5_1tkos")]
+offset_left = 3.0
+offset_right = 3.0
+
+[node name="VictoryModal" type="Control" parent="GameUi"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameUi/VictoryModal"]
+layout_mode = 0
+offset_right = 62.0
+offset_bottom = 58.0
+
+[node name="Label" type="Label" parent="GameUi/VictoryModal/VBoxContainer"]
+layout_mode = 2
+text = "Victory"
+
+[node name="Button" type="Button" parent="GameUi/VictoryModal/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Button"
+
+[node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("6_vsb8f")
+
+[connection signal="pressed" from="GameUi/VictoryModal/VBoxContainer/Button" to="GameManager" method="_on_button_pressed"]

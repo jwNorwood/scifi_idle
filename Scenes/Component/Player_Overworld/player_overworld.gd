@@ -1,20 +1,31 @@
-extends Control
+extends Sprite2D
+class_name OverworldPlayer
 
-@export var current_encounter_id: int = 0
+@export var currentEncounterId: int = 0
 @export var current_team = []
 @export var gold: int = 0
 
-# Called when the node enters the scene tree for the first time.
+var destination
+var gap: Vector2
+var speed: int = 0
+
+signal travel_finished
+
 func _ready() -> void:
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if (destination):
+		global_position += gap * speed * delta
+		if (global_position.distance_to(destination) < 1):
+			global_position = destination
+			destination = null
+			speed = 0
+			emit_signal("travel_finished")
 
-
-func travelToNode(x, y, id):
-	current_encounter_id = id
-	# node.enter()
-	pass
+func travelToEncounter(id, location):
+	currentEncounterId = id
+	destination = location
+	gap = (destination - global_position) / 100
+	speed = 100

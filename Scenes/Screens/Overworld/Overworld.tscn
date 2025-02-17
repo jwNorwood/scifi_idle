@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5wiob1qsvgme"]
+[gd_scene load_steps=5 format=3 uid="uid://b5wiob1qsvgme"]
 
 [ext_resource type="Script" path="res://Scenes/Screens/Overworld/overworld_manager.gd" id="1_b4646"]
+[ext_resource type="PackedScene" uid="uid://meys4iq7byla" path="res://Scenes/Component/Player_Overworld/Player_Overworld.tscn" id="1_nkdty"]
 [ext_resource type="PackedScene" uid="uid://kbfxir70fqor" path="res://Scenes/Component/Encounter/Encoutner.tscn" id="2_4pktn"]
 [ext_resource type="PackedScene" uid="uid://i78lmxhc0t8l" path="res://Scenes/Component/ModalEncounterInfo/modal_encounter_info.tscn" id="3_sw3xe"]
 
 [node name="Overworld" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource("1_nkdty")]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(610, 72)
 
 [node name="OverworldUi" type="CanvasLayer" parent="."]
 
@@ -28,14 +34,6 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Player Info Here"
 horizontal_alignment = 2
-
-[node name="Player" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 40.0
-offset_top = 40.0
-offset_right = 80.0
-offset_bottom = 80.0
 
 [node name="Map" type="Control" parent="."]
 unique_name_in_owner = true
