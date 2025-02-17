@@ -2,6 +2,7 @@ extends Node
 
 @onready var victoryModal = %VictoryModal
 @onready var button = %Button
+@onready var parent = $".."
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,7 +21,8 @@ func onGameEnd(victory):
 
 func returnToOverworld():
 	# change the scene
-	SceneManager.change_scene('res://Scenes/Screens/Overworld/Overworld.tscn')
+	self.get_parent().queue_free()
+	# something else	
 
 
 func _on_button_pressed():

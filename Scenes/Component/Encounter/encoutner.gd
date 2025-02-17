@@ -82,12 +82,13 @@ func getPosition():
 func _on_sleeping_state_changed():
 	drawArrows()
 
-func enterEncounter():
+func enterEncounter(parent: Node):
 	# based on details, enter scene
 	print("now entering the encounter")
-	#SceneManager.change_scene('res://Scenes/Screens/Overworld/Overworld.tscn')
-	SceneManager.change_scene('res://Scenes/Screens/Combat/Combat.tscn')	
-	pass
+	
+	# add scene into parent	
+	var scene = load('res://Scenes/Screens/Combat/Combat.tscn').instantiate()
+	parent.add_child(scene)
 
 func _on_button_pressed() -> void:
 	encounter_selected.emit(self)

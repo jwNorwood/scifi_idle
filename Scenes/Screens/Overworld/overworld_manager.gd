@@ -6,13 +6,17 @@ extends Node
 
 var storedWorld
 var spawnLocation
-var initialMove = true
+var initialMove: bool = true
 var currentEncounter: Encounter
-var playerMoving = false
+var playerMoving: bool = false
+var isInEncounter: bool = false
 
 @onready var map = %Map
 @onready var modal = %ModalEncounterInfo
 @onready var player: OverworldPlayer = %Player
+@onready var activeEncounter = %ActiveEncounter
+@onready var overworldContent = %OverworldContent
+
 
 var levelTree = {
 	"type": "start",
@@ -28,22 +32,23 @@ enum encounters { WILD, TRAINER, MYSTERY, SHOP }
 
 func _ready():
 	player.travel_finished.connect(playerFinishedTravel)
-	if (storedWorld):
-		displayWorld({})
-	else:
-		var world = buildTree(levelTree, maxDepth)
-		print("World: ", world)
-		storedWorld = world
-		displayWorld(world)
-		drawPaths()
+	
+	var world = buildTree(levelTree, maxDepth)
+	storedWorld = world
+	displayWorld(world)
+	drawPaths()
 
 func playerFinishedTravel():
-	print("arived")
 	playerMoving = false
-	currentEncounter.enterEncounter()
+	overworldContent.hide()
+	isInEncounter = true
+	# transition animation	
+	currentEncounter.enterEncounter(activeEncounter)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if (isInEncounter && activeEncounter.get_child_count() == 0):
+		overworldContent.show()
 	if (!initialMove):
 		return
 	if (!spawnLocation):
@@ -51,7 +56,27 @@ func _process(delta):
 		currentEncounter = map.get_child(0)
 	if (spawnLocation):
 		player.global_position = spawnLocation.getPosition()
+	
 
+
+func selectedEncounter(encounter: Encounter):
+	if(playerMoving):
+		return
+	print("selected: ", encounter.id)
+	modal.setTitle(str(encounter.id))
+	modal.setDescription(str(encounter.id))
+	initialMove = false
+	playerMoving = true
+	player.travelToEncounter(encounter.id, encounter.global_position)
+	currentEncounter = encounter
+
+func hoveredEncounter(hoveredId):
+	print("hovered: ", hoveredId)
+
+func playerUseItem(item):
+	print(item)
+
+# Level Buliding
 func randomEncounter():
 	return encounters.values().pick_random()
 
@@ -101,20 +126,6 @@ func recursiveSearch(tree, target):
 		for child in tree.children:
 			return recursiveSearch(child, target)
 
-func selectedEncounter(encounter: Encounter):
-	if(playerMoving):
-		return
-	print("selected: ", encounter.id)
-	modal.setTitle(str(encounter.id))
-	modal.setDescription(str(encounter.id))
-	initialMove = false
-	playerMoving = true
-	player.travelToEncounter(encounter.id, encounter.global_position)
-	currentEncounter = encounter
-
-func hoveredEncounter(hoveredId):
-	print("hovered: ", hoveredId)
-
 func recursiveAdd(tree):
 	# Create the node
 	if (tree.added):
@@ -157,11 +168,3 @@ func organizeWorld():
 
 func populateWorld():
 	pass
-
-func playerUseItem(item):
-	print(item)
-
-# Enter Combat
-func enterCombat():
-	# Take in an enemy team and player team and pass that to the scene	
-	SceneManager.change_scene('res://Scenes/Screens/Game/Game.tscn')

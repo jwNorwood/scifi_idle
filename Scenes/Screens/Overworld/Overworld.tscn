@@ -7,35 +7,44 @@
 
 [node name="Overworld" type="Node"]
 
-[node name="Player" parent="." instance=ExtResource("1_nkdty")]
+[node name="OverworldManager" type="Node" parent="."]
+script = ExtResource("1_b4646")
+encounter = ExtResource("2_4pktn")
+maxDepth = 4
+maxWidth = 2
+
+[node name="OverworldContent" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="Player" parent="OverworldContent" instance=ExtResource("1_nkdty")]
 unique_name_in_owner = true
 top_level = true
 position = Vector2(610, 72)
 
-[node name="OverworldUi" type="CanvasLayer" parent="."]
+[node name="OverworldUi" type="CanvasLayer" parent="OverworldContent"]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="OverworldUi"]
+[node name="HBoxContainer" type="HBoxContainer" parent="OverworldContent/OverworldUi"]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 23.0
 grow_horizontal = 2
 
-[node name="Placeholder" type="Label" parent="OverworldUi/HBoxContainer"]
+[node name="Placeholder" type="Label" parent="OverworldContent/OverworldUi/HBoxContainer"]
 layout_mode = 2
 text = "Welcome to the overworld"
 
-[node name="Items" type="Label" parent="OverworldUi/HBoxContainer"]
+[node name="Items" type="Label" parent="OverworldContent/OverworldUi/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Items will go here"
 horizontal_alignment = 1
 
-[node name="PlayerInfo" type="Label" parent="OverworldUi/HBoxContainer"]
+[node name="PlayerInfo" type="Label" parent="OverworldContent/OverworldUi/HBoxContainer"]
 layout_mode = 2
 text = "Player Info Here"
 horizontal_alignment = 2
 
-[node name="Map" type="Control" parent="."]
+[node name="Map" type="Control" parent="OverworldContent"]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 8
@@ -47,11 +56,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 
-[node name="OverworldManager" type="Node" parent="."]
-script = ExtResource("1_b4646")
-encounter = ExtResource("2_4pktn")
-maxDepth = 4
-maxWidth = 2
+[node name="ModalEncounterInfo" parent="OverworldContent" instance=ExtResource("3_sw3xe")]
+unique_name_in_owner = true
 
-[node name="ModalEncounterInfo" parent="." instance=ExtResource("3_sw3xe")]
+[node name="ActiveEncounter" type="Node" parent="."]
 unique_name_in_owner = true
