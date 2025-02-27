@@ -60,15 +60,17 @@ func _process(delta):
 
 
 func selectedEncounter(encounter: Encounter):
+	print("selected: ", encounter.id)
+	print("current ", currentEncounter.id)
 	if(playerMoving):
 		return
-	print("selected: ", encounter.id)
-	modal.setTitle(str(encounter.id))
-	modal.setDescription(str(encounter.id))
-	initialMove = false
-	playerMoving = true
-	player.travelToEncounter(encounter.id, encounter.global_position)
-	currentEncounter = encounter
+	if(currentEncounter.hasChildNode(encounter.id)):
+		modal.setTitle(str(encounter.id))
+		modal.setDescription(str(encounter.id))
+		initialMove = false
+		playerMoving = true
+		player.travelToEncounter(encounter.id, encounter.global_position)
+		currentEncounter = encounter
 
 func hoveredEncounter(hoveredId):
 	print("hovered: ", hoveredId)

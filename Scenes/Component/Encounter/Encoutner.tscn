@@ -5,11 +5,12 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_w1axq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qkmgy"]
-size = Vector2(101, 115)
+size = Vector2(105.5, 110)
 
 [node name="Encoutner" type="RigidBody2D" groups=["encounter"]]
 z_index = -1
 physics_material_override = SubResource("PhysicsMaterial_w1axq")
+sleeping = true
 script = ExtResource("1_ajrht")
 
 [node name="Button" type="Button" parent="."]
@@ -27,7 +28,9 @@ offset_bottom = 7.0
 mouse_filter = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 1.5)
+position = Vector2(3.25, 4)
+rotation = 6.28319
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_qkmgy")
 
 [node name="Depth" type="RichTextLabel" parent="."]
