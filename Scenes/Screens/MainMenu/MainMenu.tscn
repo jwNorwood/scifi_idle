@@ -1,22 +1,41 @@
-[gd_scene format=3 uid="uid://bshjive2cjmsl"]
+[gd_scene load_steps=2 format=3 uid="uid://bshjive2cjmsl"]
+
+[ext_resource type="Script" path="res://Scenes/Screens/MainMenu/main_menu.gd" id="1_d1jyp"]
 
 [node name="MainMenu" type="Node"]
+script = ExtResource("1_d1jyp")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 93.0
+offset_bottom = 648.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="NewGame" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "New Game"
+
+[node name="Continue" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Atlas" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Atlas"
+
+[node name="Settings" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Control" type="Control" parent="HBoxContainer"]
 layout_mode = 2
 
-[node name="NewGame" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Continue" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Atlas" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Settings" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
+[connection signal="pressed" from="HBoxContainer/MarginContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="HBoxContainer/MarginContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]

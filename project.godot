@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Pet idle game"
-run/main_scene="res://Scenes/Screens/Overworld/Overworld.tscn"
+run/main_scene="res://Scenes/Screens/MainMenu/MainMenu.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
@@ -22,7 +22,7 @@ SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/scene_manager/plugin.cfg")
 
 [physics]
 

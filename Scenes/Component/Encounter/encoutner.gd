@@ -1,9 +1,10 @@
-extends RigidBody2D
-class_name Encounter
+class_name Encounter extends RigidBody2D
 
 var childNodes: Array = []
 var id: int
 var depth: int = 0
+
+const ENCOUNTER_SCENE: PackedScene = preload("res://Scenes/Component/Encounter/Encoutner.tscn")
 
 @onready var depthLabel = %Depth
 @onready var color = %ColorRect
@@ -14,6 +15,17 @@ enum encounters { WILD, TRAINER, MYSTERY, SHOP }
 
 signal encounter_selected(encounter: Encounter)
 signal encounter_hovered(id: int)
+
+static func create(node_id, node_depth, node_children, node_type) -> Encounter:
+	var newEncounter: Encounter = ENCOUNTER_SCENE.instantiate()
+	newEncounter.id = node_id
+	newEncounter.depth = node_depth
+	newEncounter.childNodes = node_children
+	newEncounter.nodeType = node_type
+	return newEncounter
+	
+func addNewChild(child):
+	childNodes.push_back(child)
 
 func getEncounterInfo():
 	match  nodeType:
@@ -35,7 +47,7 @@ func getEncounterInfo():
 		encounters.SHOP:
 			return {
 				"color": Color.INDIAN_RED,
-				"scene": 'res://Scenes/Screens/Combat/Combat.tscn'
+				"scene": 'res://Scenes/Screens/Store/Store.tscn'
 			}
 		_:
 			return {

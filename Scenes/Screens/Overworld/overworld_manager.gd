@@ -28,6 +28,14 @@ var levelTree = {
 
 enum encounters { WILD, TRAINER, MYSTERY, SHOP } 
 
+var end = {
+	"type": "end",
+	"children": [],
+	"depth": 5,
+	"added": false,
+	"id": 999
+}
+
 # Called when the node enters the scene tree for the first time.
 
 func _ready():
@@ -56,8 +64,6 @@ func _process(delta):
 		currentEncounter = map.get_child(0)
 	if (spawnLocation):
 		player.global_position = spawnLocation.getPosition()
-	
-
 
 func selectedEncounter(encounter: Encounter):
 	print("selected: ", encounter.id)
@@ -97,6 +103,7 @@ func createNewNode(currentDepth: int):
 
 func buildTree(tree, depth):
 	if (depth == 0):
+		tree.children.append(end)
 		return tree
 	else:
 		var left = createNewNode(tree.depth + 1)
@@ -113,6 +120,7 @@ func buildTree(tree, depth):
 		return tree
 
 func findNodesAtDepth(tree, depth):
+	# return all nodes at a certain depth
 	var nodes = []
 	if (tree.depth == depth):
 		nodes.append(tree)
@@ -134,12 +142,7 @@ func recursiveAdd(tree):
 		return
 	else:
 		tree.added = true
-		var newNode = encounter.instantiate()
-		# Set the type
-		newNode.nodeType = tree.type
-		newNode.childNodes = tree.children
-		newNode.id = tree.id
-		newNode.depth = tree.depth
+		var newNode = Encounter.create(tree.id, tree.depth, tree.children, tree.type)
 		newNode.encounter_selected.connect(selectedEncounter)
 		newNode.encounter_hovered.connect(hoveredEncounter)
 		
@@ -163,6 +166,14 @@ func drawPaths():
 
 func organizeWorld():
 	pass
+	
+func addEnd(world):
+	var endNodes = findNodesAtDepth(world, 4)
+	print("endNodes: ", endNodes)
+	for node in endNodes:
+		node.children.push_end(end)
+		# recursiveAdd(end)
+	
 
 # make last node a boss
 # link chiless nodes to a node at a deeper level
