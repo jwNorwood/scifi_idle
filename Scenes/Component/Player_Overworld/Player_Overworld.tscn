@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://meys4iq7byla"]
 
-[ext_resource type="Script" path="res://Scenes/Component/Player_Overworld/player_overworld.gd" id="1_6gjmb"]
+[ext_resource type="Script" uid="uid://dy6wl1cor0hbw" path="res://Scenes/Component/Player_Overworld/player_overworld.gd" id="1_6gjmb"]
 [ext_resource type="Texture2D" uid="uid://d18flbg8nvjn1" path="res://icon.svg" id="1_yee51"]
 
 [node name="PlayerOverworld" type="Sprite2D"]

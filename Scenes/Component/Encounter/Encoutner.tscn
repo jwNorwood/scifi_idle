@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://kbfxir70fqor"]
 
-[ext_resource type="Script" path="res://Scenes/Component/Encounter/encoutner.gd" id="1_ajrht"]
+[ext_resource type="Script" uid="uid://bsd38ya2dqarh" path="res://Scenes/Component/Encounter/encoutner.gd" id="1_ajrht"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_w1axq"]
 

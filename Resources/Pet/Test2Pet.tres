@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Pet" load_steps=5 format=3 uid="uid://c7nn1snlqca1e"]
 
-[ext_resource type="Script" path="res://Resources/Pet/pet.gd" id="1_2dc3r"]
+[ext_resource type="Script" uid="uid://b0efn4rolnv85" path="res://Resources/Pet/pet.gd" id="1_2dc3r"]
 [ext_resource type="Resource" uid="uid://g46oh0ba0eyu" path="res://Resources/SpecialAttack/Fireball/Fireball.tres" id="1_hw4mx"]
-[ext_resource type="Script" path="res://Resources/SpecialAttack/SpecialAttack.gd" id="2_epgka"]
+[ext_resource type="Script" uid="uid://636qp22ixqbc" path="res://Resources/SpecialAttack/SpecialAttack.gd" id="2_epgka"]
 [ext_resource type="Texture2D" uid="uid://b8ii35ggepmn8" path="res://Assets/Pet/7.png" id="2_xytuy"]
 
 [resource]

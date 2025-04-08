@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://cgm5af1fidof7"]
 
-[ext_resource type="Script" path="res://Scenes/Component/Pet/Pet.gd" id="1_hylcd"]
-[ext_resource type="Script" path="res://Scenes/Component/Pet/StateMachine.gd" id="2_g4uar"]
+[ext_resource type="Script" uid="uid://e0h18jplc27v" path="res://Scenes/Component/Pet/Pet.gd" id="1_hylcd"]
+[ext_resource type="Script" uid="uid://d3trih147kgbe" path="res://Scenes/Component/Pet/StateMachine.gd" id="2_g4uar"]
 [ext_resource type="Texture2D" uid="uid://d18flbg8nvjn1" path="res://icon.svg" id="2_i2ioo"]
-[ext_resource type="Script" path="res://Scenes/Component/Pet/special_attack.gd" id="3_1661y"]
-[ext_resource type="Script" path="res://Scenes/Component/Pet/states/attack.gd" id="5_3b63a"]
-[ext_resource type="Script" path="res://Scenes/Component/Pet/dead.gd" id="6_vq5b6"]
-[ext_resource type="Script" path="res://Scenes/Component/Pet/victory.gd" id="7_gv2vs"]
+[ext_resource type="Script" uid="uid://deqeowj43xa8a" path="res://Scenes/Component/Pet/special_attack.gd" id="3_1661y"]
+[ext_resource type="Script" uid="uid://ddjr87hvtli2l" path="res://Scenes/Component/Pet/states/attack.gd" id="5_3b63a"]
+[ext_resource type="Script" uid="uid://5vc75arwuba7" path="res://Scenes/Component/Pet/dead.gd" id="6_vq5b6"]
+[ext_resource type="Script" uid="uid://dtux8copua4ge" path="res://Scenes/Component/Pet/victory.gd" id="7_gv2vs"]
 [ext_resource type="PackedScene" uid="uid://pq6wwum4d3du" path="res://Scenes/Component/Pet/ManaBar.tscn" id="7_idkaj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6ipo"]

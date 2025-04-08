@@ -1,12 +1,12 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=8 format=3 uid="uid://dj4xw2k7kcev4"]
 
-[ext_resource type="Script" path="res://Scenes/Screens/Overworld/overworld_manager.gd" id="1_4ujl4"]
-[ext_resource type="PackedScene" path="res://Scenes/Component/Encounter/Encoutner.tscn" id="2_mrru6"]
-[ext_resource type="PackedScene" path="res://Scenes/Component/Player_Overworld/Player_Overworld.tscn" id="3_o5n1s"]
-[ext_resource type="Texture2D" path="res://icon.svg" id="4_ma1jt"]
-[ext_resource type="Script" path="res://Scenes/Component/Player_Overworld/player_overworld.gd" id="5_7f7dl"]
-[ext_resource type="PackedScene" path="res://Scenes/Component/ModalEncounterInfo/modal_encounter_info.tscn" id="6_b4h7i"]
-[ext_resource type="Script" path="res://Scenes/Component/ModalEncounterInfo/modal_encounter_info.gd" id="7_3wxpi"]
+[ext_resource type="Script" uid="uid://b86om6jc1myiq" path="res://Scenes/Screens/Overworld/overworld_manager.gd" id="1_4ujl4"]
+[ext_resource type="PackedScene" uid="uid://kbfxir70fqor" path="res://Scenes/Component/Encounter/Encoutner.tscn" id="2_mrru6"]
+[ext_resource type="PackedScene" uid="uid://meys4iq7byla" path="res://Scenes/Component/Player_Overworld/Player_Overworld.tscn" id="3_o5n1s"]
+[ext_resource type="Texture2D" uid="uid://d18flbg8nvjn1" path="res://icon.svg" id="4_ma1jt"]
+[ext_resource type="Script" uid="uid://dy6wl1cor0hbw" path="res://Scenes/Component/Player_Overworld/player_overworld.gd" id="5_7f7dl"]
+[ext_resource type="PackedScene" uid="uid://i78lmxhc0t8l" path="res://Scenes/Component/ModalEncounterInfo/modal_encounter_info.tscn" id="6_b4h7i"]
+[ext_resource type="Script" uid="uid://bm2rcoap43jva" path="res://Scenes/Component/ModalEncounterInfo/modal_encounter_info.gd" id="7_3wxpi"]
 
 [node name="Overworld" type="Node"]
 

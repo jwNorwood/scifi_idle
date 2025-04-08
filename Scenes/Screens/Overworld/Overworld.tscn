@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5wiob1qsvgme"]
+[gd_scene load_steps=7 format=3 uid="uid://b5wiob1qsvgme"]
 
-[ext_resource type="Script" path="res://Scenes/Screens/Overworld/overworld_manager.gd" id="1_b4646"]
+[ext_resource type="Script" uid="uid://b86om6jc1myiq" path="res://Scenes/Screens/Overworld/overworld_manager.gd" id="1_b4646"]
 [ext_resource type="PackedScene" uid="uid://meys4iq7byla" path="res://Scenes/Component/Player_Overworld/Player_Overworld.tscn" id="1_nkdty"]
 [ext_resource type="PackedScene" uid="uid://kbfxir70fqor" path="res://Scenes/Component/Encounter/Encoutner.tscn" id="2_4pktn"]
+[ext_resource type="Script" uid="uid://dkguj0nkr84ft" path="res://Scenes/Screens/Overworld/ui_manager.gd" id="3_6x3sf"]
+[ext_resource type="PackedScene" uid="uid://ce3v12qhxd3ci" path="res://Scenes/Component/ModifierList/ModifierList.tscn" id="3_sm4cn"]
 [ext_resource type="PackedScene" uid="uid://i78lmxhc0t8l" path="res://Scenes/Component/ModalEncounterInfo/modal_encounter_info.tscn" id="3_sw3xe"]
 
 [node name="Overworld" type="Node"]
@@ -18,11 +20,11 @@ maxWidth = 2
 [node name="HeaderBG" type="Panel" parent="GlobalUI"]
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 38.0
+offset_bottom = 64.0
 grow_horizontal = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GlobalUI/HeaderBG"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GlobalUI/HeaderBG"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,20 +32,44 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Placeholder" type="Label" parent="GlobalUI/HeaderBG/HBoxContainer"]
+[node name="Info" type="HBoxContainer" parent="GlobalUI/HeaderBG/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Placeholder" type="Label" parent="GlobalUI/HeaderBG/VBoxContainer/Info"]
 layout_mode = 2
 text = "World 1"
 
-[node name="Items" type="Label" parent="GlobalUI/HeaderBG/HBoxContainer"]
+[node name="Items" type="Label" parent="GlobalUI/HeaderBG/VBoxContainer/Info"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Items will go here"
 horizontal_alignment = 1
 
-[node name="PlayerInfo" type="Label" parent="GlobalUI/HeaderBG/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GlobalUI/HeaderBG/VBoxContainer/Info"]
+layout_mode = 2
+
+[node name="Gold" type="Label" parent="GlobalUI/HeaderBG/VBoxContainer/Info/HBoxContainer"]
 layout_mode = 2
 text = "Money"
 horizontal_alignment = 2
+
+[node name="GoldValue" type="Label" parent="GlobalUI/HeaderBG/VBoxContainer/Info/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Money"
+horizontal_alignment = 2
+
+[node name="Modifiers" type="HBoxContainer" parent="GlobalUI/HeaderBG/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ModifierList" parent="GlobalUI/HeaderBG/VBoxContainer/Modifiers" instance=ExtResource("3_sm4cn")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="UIManager" type="Node" parent="GlobalUI"]
+script = ExtResource("3_6x3sf")
 
 [node name="OverworldContent" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

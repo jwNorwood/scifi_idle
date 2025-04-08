@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://i78lmxhc0t8l"]
 
-[ext_resource type="Script" path="res://Scenes/Component/ModalEncounterInfo/modal_encounter_info.gd" id="1_ldc8j"]
+[ext_resource type="Script" uid="uid://bm2rcoap43jva" path="res://Scenes/Component/ModalEncounterInfo/modal_encounter_info.gd" id="1_ldc8j"]
 
 [node name="ModalEncounterInfo" type="Control"]
 layout_mode = 3

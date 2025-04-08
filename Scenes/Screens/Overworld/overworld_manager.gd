@@ -17,7 +17,6 @@ var isInEncounter: bool = false
 @onready var activeEncounter = %ActiveEncounter
 @onready var overworldContent = %OverworldContent
 
-
 var levelTree = {
 	"type": "start",
 	"children": [],
@@ -36,9 +35,8 @@ var end = {
 	"id": 999
 }
 
-# Called when the node enters the scene tree for the first time.
-
 func _ready():
+	# player events
 	player.travel_finished.connect(playerFinishedTravel)
 	
 	var world = buildTree(levelTree, maxDepth)
@@ -171,13 +169,7 @@ func addEnd(world):
 	var endNodes = findNodesAtDepth(world, 4)
 	print("endNodes: ", endNodes)
 	for node in endNodes:
-		node.children.push_end(end)
-		# recursiveAdd(end)
-	
-
-# make last node a boss
-# link chiless nodes to a node at a deeper level
-
+		node.children.push_end(end)	
 
 func populateWorld():
 	pass

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://g46oh0ba0eyu"]
 
-[ext_resource type="Script" path="res://Resources/SpecialAttack/Fireball/Fireball.gd" id="1_ocvsl"]
+[ext_resource type="Script" uid="uid://blko87d37v25x" path="res://Resources/SpecialAttack/Fireball/Fireball.gd" id="1_ocvsl"]
 
 [resource]
 script = ExtResource("1_ocvsl")

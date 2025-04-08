@@ -1,6 +1,6 @@
 extends Node
 
-@onready var victoryModal = %VictoryModal
+@onready var rewardModal = %RewardModal
 @onready var button = %Button
 @onready var parent = $".."
 
@@ -13,16 +13,16 @@ func _ready():
 func _process(delta):
 	pass
 
-
-
 func onGameEnd(victory):
 	print("victory ", victory)
-	victoryModal.show()
+	rewardModal.show()
 
 func returnToOverworld():
 	# change the scene
+	EventBus.player_gold_change.emit(10)
 	self.get_parent().queue_free()
-	# something else	
+	# something else
+	#on modal closed	
 
 
 func _on_button_pressed():

@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://e8euawp0v1a8"]
+
+[ext_resource type="Script" uid="uid://ds15sxp5mpa3w" path="res://Scenes/Component/Dialogue/dialogue.gd" id="1_16rlc"]
+
+[node name="Dialogue" type="Control"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_16rlc")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -295.0
+offset_top = -73.0
+offset_right = -1.0
+offset_bottom = -1.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_right = 288.0
+offset_bottom = 66.0
+text = "Text goes here"

@@ -1,17 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0jg6elqmyd1"]
+[gd_scene load_steps=3 format=3 uid="uid://b0jg6elqmyd1"]
 
-[ext_resource type="Script" path="res://Scenes/Screens/Store/store.gd" id="1_x7lna"]
+[ext_resource type="Script" uid="uid://tlk1jtt4u15g" path="res://Scenes/Screens/Store/store.gd" id="1_x7lna"]
+[ext_resource type="PackedScene" uid="uid://e8euawp0v1a8" path="res://Scenes/Component/Dialogue/Dialogue.tscn" id="2_uav8p"]
 
 [node name="Store" type="Node"]
 script = ExtResource("1_x7lna")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 offset_right = 1151.0
-offset_bottom = 40.0
+offset_bottom = 64.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 24
+theme_override_constants/margin_top = 84
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
@@ -40,50 +41,58 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Monsters" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="Dialogue" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_uav8p")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Monsters" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer/Monsters"]
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Monsters"]
 layout_mode = 2
 text = "Monster 1"
 
-[node name="Button3" type="Button" parent="MarginContainer/HBoxContainer/Monsters"]
+[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Monsters"]
 layout_mode = 2
 text = "Monster 2"
 
-[node name="Button" type="Button" parent="MarginContainer/HBoxContainer/Monsters"]
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Monsters"]
 layout_mode = 2
 text = "Monster 3"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Skills" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Skills" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/Skills"]
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Skills"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Skill 1"
 
-[node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/Skills"]
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Skills"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Skill 2"
 
-[node name="Items" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Items" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/Items"]
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Items"]
 layout_mode = 2
 text = "Item 1"
 
-[node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/Items"]
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Items"]
 layout_mode = 2
 text = "Item 2"
 

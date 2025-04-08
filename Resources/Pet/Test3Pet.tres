@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="Pet" load_steps=5 format=3 uid="uid://b5y13n2nrk1qf"]
 
-[ext_resource type="Script" path="res://Resources/Pet/pet.gd" id="1_ohl68"]
+[ext_resource type="Script" uid="uid://b0efn4rolnv85" path="res://Resources/Pet/pet.gd" id="1_ohl68"]
 [ext_resource type="Resource" uid="uid://xi3pve02g242" path="res://Resources/SpecialAttack/Example/example.tres" id="1_tl8qi"]
 [ext_resource type="Texture2D" uid="uid://puf53v61118p" path="res://Assets/Pet/5.png" id="2_bygbj"]
-[ext_resource type="Script" path="res://Resources/SpecialAttack/SpecialAttack.gd" id="3_jruqv"]
+[ext_resource type="Script" uid="uid://636qp22ixqbc" path="res://Resources/SpecialAttack/SpecialAttack.gd" id="3_jruqv"]
 
 [resource]
 script = ExtResource("1_ohl68")
