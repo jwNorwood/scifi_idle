@@ -1,6 +1,6 @@
 extends Node
 
-@export var encounter: PackedScene
+var encounter = "res://Scenes/Component/Encounter/Encoutner.tscn"
 @export var maxDepth: int = 10
 @export var maxWidth: int = 5
 
