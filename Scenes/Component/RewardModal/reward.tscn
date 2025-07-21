@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfwuojxaop8n0"]
+
+[ext_resource type="Script" uid="uid://bxxtnmlfwibyf" path="res://Scenes/Component/RewardModal/reward.gd" id="1_cqiax"]
+
+[node name="Reward" type="Button"]
+text = "Reward"
+script = ExtResource("1_cqiax")

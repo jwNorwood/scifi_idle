@@ -31,6 +31,14 @@ reverseOrder = true
 offset_left = 3.0
 offset_right = 3.0
 
+[node name="Exit" type="Button" parent="GameUi"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Exit to home"
+
 [node name="Dialogue" parent="GameUi" instance=ExtResource("7_a6pxh")]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -44,3 +52,6 @@ layout_mode = 2
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("6_vsb8f")
+
+[connection signal="pressed" from="GameUi/Exit" to="Game Elements/Player" method="_on_button_pressed"]
+[connection signal="pressed" from="GameUi/Exit" to="GameManager" method="_on_exit_pressed"]

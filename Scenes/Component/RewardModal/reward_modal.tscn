@@ -1,10 +1,14 @@
-[gd_scene format=3 uid="uid://ccol2flf1p1or"]
+[gd_scene load_steps=3 format=3 uid="uid://ccol2flf1p1or"]
+
+[ext_resource type="Script" uid="uid://b41ay68fjehi1" path="res://Scenes/Component/RewardModal/reward_modal.gd" id="1_7lsvc"]
+[ext_resource type="PackedScene" uid="uid://dfwuojxaop8n0" path="res://Scenes/Component/RewardModal/reward.tscn" id="2_7sdmp"]
 
 [node name="RewardModal" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+script = ExtResource("1_7lsvc")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
@@ -37,17 +41,8 @@ justification_flags = 161
 [node name="Rewards" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Reward" type="Button" parent="Panel/MarginContainer/VBoxContainer/Rewards"]
+[node name="Reward" parent="Panel/MarginContainer/VBoxContainer/Rewards" instance=ExtResource("2_7sdmp")]
 layout_mode = 2
-text = "Reward"
-
-[node name="Reward2" type="Button" parent="Panel/MarginContainer/VBoxContainer/Rewards"]
-layout_mode = 2
-text = "Reward"
-
-[node name="Reward3" type="Button" parent="Panel/MarginContainer/VBoxContainer/Rewards"]
-layout_mode = 2
-text = "Reward"
 
 [node name="Take All" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -55,3 +50,6 @@ layout_mode = 2
 size_flags_vertical = 10
 text = "Take All
 "
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Rewards/Reward" to="." method="_on_reward_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Take All" to="." method="_on_take_all_pressed"]
