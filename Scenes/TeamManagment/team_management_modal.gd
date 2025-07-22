@@ -10,6 +10,12 @@ var original_team: Array[Pet] = []
 var current_team: Array[Pet] = []
 var inventory_pets: Array[Pet] = []
 
+# Drag and drop state
+var is_dragging: bool = false
+var dragged_pet: Pet = null
+var drag_source_slot: Control = null
+var drag_preview: Control = null
+
 const MAX_TEAM_SIZE = 5
 const MAX_INVENTORY_SIZE = 5  # Fixed inventory grid size
 const PET_SLOT_SCENE = preload("res://Scenes/TeamManagment/PetSlot.tscn")
@@ -50,7 +56,9 @@ func _setup_team_slots():
 		var slot = PET_SLOT_SCENE.instantiate()
 		slot.slot_index = i
 		slot.is_team_slot = true
-		slot.pet_dropped.connect(_on_pet_dropped_to_team)
+		
+		# Connect to centralized drag system
+		slot.drag_started.connect(_on_slot_drag_started)
 		slot.pet_removed.connect(_on_pet_removed_from_team)
 		
 		if i < current_team.size():
@@ -63,21 +71,25 @@ func _setup_inventory_slots():
 	for child in inventory_slots.get_children():
 		child.queue_free()
 	
-	# Create fixed number of inventory slots (filled and empty)
+	# Create exactly MAX_INVENTORY_SIZE slots (5 slots)
 	for i in range(MAX_INVENTORY_SIZE):
 		var slot = PET_SLOT_SCENE.instantiate()
 		slot.slot_index = i
 		slot.is_team_slot = false
-		slot.pet_dropped.connect(_on_pet_dropped_to_inventory)
-		slot.pet_removed.connect(_on_pet_removed_from_inventory)
 		
-		# Set pet if one exists at this index, otherwise leave empty
+		# Set pet if one exists at this index
 		if i < inventory_pets.size():
 			slot.set_pet(inventory_pets[i])
-		else:
-			slot.set_pet(null)  # Empty slot
+		
+		# Connect to centralized drag system
+		slot.drag_started.connect(_on_slot_drag_started)
+		slot.pet_removed.connect(_on_pet_removed_from_inventory)
 		
 		inventory_slots.add_child(slot)
+
+# Handle drag started from any slot
+func _on_slot_drag_started(pet: Pet, slot: Control):
+	start_pet_drag(pet, slot)
 
 func _on_pet_dropped_to_team(slot_index: int, pet: Pet):
 	# Handle dropping pet to team slot
@@ -263,3 +275,144 @@ func _unpause_overworld_content():
 		print("Overworld content unpaused")
 	else:
 		print("Warning: Could not find overworld content to unpause")
+
+# Centralized drag and drop management
+func start_pet_drag(pet: Pet, source_slot: Control):
+	if is_dragging:
+		return
+	
+	is_dragging = true
+	dragged_pet = pet
+	drag_source_slot = source_slot
+	
+	# Create drag preview
+	_create_drag_preview(pet)
+	
+	# Update all slots for drag state
+	_update_all_slots_for_drag_start()
+	
+	# Start processing for drag updates
+	set_process(true)
+
+func _create_drag_preview(pet: Pet):
+	if drag_preview:
+		drag_preview.queue_free()
+	
+	drag_preview = Control.new()
+	drag_preview.z_index = 1000  # Ensure it's on top
+	
+	var preview_texture = TextureRect.new()
+	preview_texture.texture = pet.texture_card
+	preview_texture.custom_minimum_size = Vector2(60, 60)
+	preview_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	preview_texture.modulate.a = 0.8
+	
+	drag_preview.add_child(preview_texture)
+	add_child(drag_preview)
+	
+	# Position at mouse
+	drag_preview.global_position = get_global_mouse_position() - Vector2(30, 30)
+
+func _process(_delta):
+	if is_dragging:
+		_update_drag()
+
+func _update_drag():
+	if not drag_preview:
+		return
+	
+	# Update preview position
+	drag_preview.global_position = get_global_mouse_position() - Vector2(30, 30)
+	
+	# Update hover effects on all slots
+	_update_all_slots_hover_effects()
+
+func end_pet_drag():
+	if not is_dragging:
+		return
+	
+	# Find drop target
+	var drop_target = _find_drop_target_at_mouse()
+	
+	# Perform drop if valid target found
+	if drop_target and drop_target != drag_source_slot:
+		_perform_pet_drop(drop_target)
+	
+	# Clean up drag state
+	_cleanup_drag_state()
+
+func _find_drop_target_at_mouse() -> Control:
+	# Check all team slots
+	for slot in active_team_slots.get_children():
+		if slot.has_method("is_mouse_over") and slot.is_mouse_over():
+			return slot
+	
+	# Check all inventory slots
+	for slot in inventory_slots.get_children():
+		if slot.has_method("is_mouse_over") and slot.is_mouse_over():
+			return slot
+	
+	return null
+
+func _perform_pet_drop(target_slot: Control):
+	var target_index = target_slot.slot_index
+	var target_is_team = target_slot.is_team_slot
+	
+	if target_is_team:
+		_on_pet_dropped_to_team(target_index, dragged_pet)
+	else:
+		_on_pet_dropped_to_inventory(target_index, dragged_pet)
+
+func _update_all_slots_for_drag_start():
+	# Update source slot appearance
+	if drag_source_slot and drag_source_slot.has_method("set_drag_source_appearance"):
+		drag_source_slot.set_drag_source_appearance()
+	
+	# Update all other slots for potential drop targets
+	_update_all_slots_hover_effects()
+
+func _update_all_slots_hover_effects():
+	# Update team slots
+	for slot in active_team_slots.get_children():
+		if slot.has_method("update_drag_hover"):
+			var is_over = slot.is_mouse_over() if slot.has_method("is_mouse_over") else false
+			slot.update_drag_hover(is_over)
+	
+	# Update inventory slots
+	for slot in inventory_slots.get_children():
+		if slot.has_method("update_drag_hover"):
+			var is_over = slot.is_mouse_over() if slot.has_method("is_mouse_over") else false
+			slot.update_drag_hover(is_over)
+
+func _cleanup_drag_state():
+	is_dragging = false
+	dragged_pet = null
+	drag_source_slot = null
+	
+	# Remove drag preview
+	if drag_preview:
+		drag_preview.queue_free()
+		drag_preview = null
+	
+	# Reset all slot appearances
+	_reset_all_slot_appearances()
+	
+	# Stop processing
+	set_process(false)
+
+func _reset_all_slot_appearances():
+	# Reset team slots
+	for slot in active_team_slots.get_children():
+		if slot.has_method("reset_drag_appearance"):
+			slot.reset_drag_appearance()
+	
+	# Reset inventory slots
+	for slot in inventory_slots.get_children():
+		if slot.has_method("reset_drag_appearance"):
+			slot.reset_drag_appearance()
+
+# Handle input for drag end detection
+func _input(event):
+	if is_dragging and event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+			end_pet_drag()
