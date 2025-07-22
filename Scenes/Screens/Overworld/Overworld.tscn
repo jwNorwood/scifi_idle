@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5wiob1qsvgme"]
+[gd_scene load_steps=7 format=3 uid="uid://b5wiob1qsvgme"]
 
 [ext_resource type="Script" uid="uid://b86om6jc1myiq" path="res://Scenes/Screens/Overworld/overworld_manager.gd" id="1_b4646"]
 [ext_resource type="PackedScene" uid="uid://meys4iq7byla" path="res://Scenes/Component/Player_Overworld/Player_Overworld.tscn" id="1_nkdty"]
 [ext_resource type="Script" uid="uid://dkguj0nkr84ft" path="res://Scenes/Screens/Overworld/ui_manager.gd" id="3_6x3sf"]
 [ext_resource type="PackedScene" uid="uid://ce3v12qhxd3ci" path="res://Scenes/Component/ModifierList/ModifierList.tscn" id="3_sm4cn"]
 [ext_resource type="PackedScene" uid="uid://i78lmxhc0t8l" path="res://Scenes/Component/ModalEncounterInfo/modal_encounter_info.tscn" id="3_sw3xe"]
+[ext_resource type="PackedScene" uid="uid://cwrb8fj7r5i2v" path="res://Scenes/TeamManagment/TeamManagementModal.tscn" id="6_sm4cn"]
 
 [node name="Overworld" type="Node"]
 
@@ -14,6 +15,10 @@ maxDepth = 4
 maxWidth = 2
 
 [node name="GlobalUI" type="CanvasLayer" parent="."]
+
+[node name="TeamManagementModal" parent="GlobalUI" instance=ExtResource("6_sm4cn")]
+unique_name_in_owner = true
+z_index = 999
 
 [node name="HeaderBG" type="Panel" parent="GlobalUI"]
 anchors_preset = 10
@@ -29,6 +34,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Actions" type="HBoxContainer" parent="GlobalUI/HeaderBG/VBoxContainer"]
+layout_mode = 2
+
+[node name="TeamButton" type="Button" parent="GlobalUI/HeaderBG/VBoxContainer/Actions"]
+layout_mode = 2
+text = "Manage Team"
 
 [node name="Info" type="HBoxContainer" parent="GlobalUI/HeaderBG/VBoxContainer"]
 layout_mode = 2
@@ -69,7 +81,7 @@ size_flags_horizontal = 3
 [node name="UIManager" type="Node" parent="GlobalUI"]
 script = ExtResource("3_6x3sf")
 
-[node name="OverworldContent" type="CanvasLayer" parent="."]
+[node name="OverworldContent" type="CanvasLayer" parent="." groups=["overworld_content"]]
 unique_name_in_owner = true
 
 [node name="Player" parent="OverworldContent" instance=ExtResource("1_nkdty")]
@@ -79,6 +91,7 @@ position = Vector2(610, 72)
 
 [node name="Map" type="Control" parent="OverworldContent"]
 unique_name_in_owner = true
+z_index = 2
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -94,3 +107,5 @@ unique_name_in_owner = true
 
 [node name="ActiveEncounter" type="Node" parent="."]
 unique_name_in_owner = true
+
+[connection signal="pressed" from="GlobalUI/HeaderBG/VBoxContainer/Actions/TeamButton" to="GlobalUI/UIManager" method="_on_team_button_pressed"]

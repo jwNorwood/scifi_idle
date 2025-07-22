@@ -1,0 +1,124 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwrb8fj7r5i2v"]
+
+[ext_resource type="Script" uid="uid://csxlf1qvimts2" path="res://Scenes/TeamManagment/team_management_modal.gd" id="1_2x8nj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1n6x9"]
+bg_color = Color(0.1, 0.1, 0.1, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="TeamManagementModal" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_2x8nj")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ModalPanel" type="Panel" parent="."]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1n6x9")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ModalPanel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="Header" type="HBoxContainer" parent="ModalPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ModalPanel/VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Team Management"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="ModalPanel/VBoxContainer/Header"]
+layout_mode = 2
+text = "X"
+
+[node name="HSeparator" type="HSeparator" parent="ModalPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Content" type="HBoxContainer" parent="ModalPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ActiveTeam" type="VBoxContainer" parent="ModalPanel/VBoxContainer/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActiveTeamLabel" type="Label" parent="ModalPanel/VBoxContainer/Content/ActiveTeam"]
+layout_mode = 2
+text = "Active Team"
+horizontal_alignment = 1
+
+[node name="ActiveTeamSlots" type="VBoxContainer" parent="ModalPanel/VBoxContainer/Content/ActiveTeam"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VSeparator" type="VSeparator" parent="ModalPanel/VBoxContainer/Content"]
+layout_mode = 2
+
+[node name="Inventory" type="VBoxContainer" parent="ModalPanel/VBoxContainer/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InventoryLabel" type="Label" parent="ModalPanel/VBoxContainer/Content/Inventory"]
+layout_mode = 2
+text = "Pet Inventory"
+horizontal_alignment = 1
+
+[node name="InventorySlots" type="VBoxContainer" parent="ModalPanel/VBoxContainer/Content/Inventory"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HSeparator2" type="HSeparator" parent="ModalPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="ModalPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="ModalPanel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save Changes"
+
+[node name="CancelButton" type="Button" parent="ModalPanel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[connection signal="gui_input" from="Background" to="." method="_on_background_clicked"]
+[connection signal="pressed" from="ModalPanel/VBoxContainer/Header/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="ModalPanel/VBoxContainer/ButtonContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="ModalPanel/VBoxContainer/ButtonContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

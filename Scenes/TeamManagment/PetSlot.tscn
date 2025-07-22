@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://bv6u2dmyjwnib"]
+
+[ext_resource type="Script" path="res://Scenes/TeamManagment/pet_slot.gd" id="1_8xqnf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1h5r9"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 0.5, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="PetSlot" type="Control"]
+custom_minimum_size = Vector2(80, 100)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_8xqnf")
+
+[node name="SlotBackground" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1h5r9")
+
+[node name="PetContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+
+[node name="PetIcon" type="TextureRect" parent="PetContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PetName" type="Label" parent="PetContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Empty"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_contents = true
+
+[node name="DropIndicator" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 1, 0, 0.3)
+
+[node name="DragPreview" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = 50.0
+
+[node name="PreviewIcon" type="TextureRect" parent="DragPreview"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand_mode = 1
+stretch_mode = 5

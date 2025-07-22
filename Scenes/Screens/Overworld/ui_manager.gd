@@ -2,6 +2,7 @@ extends Node
 
 @onready var goldValue = %GoldValue
 @onready var expValue = 1
+@onready var team_modal = %TeamManagementModal
 
 func goldChange(value: int):
 	print("gold changed: ", value)
@@ -17,3 +18,6 @@ func _ready():
 	
 	goldValue.text = str(GlobalPlayer.playerGold)
 	expValue = GlobalPlayer.playerExp
+
+func _on_team_button_pressed():
+	team_modal.show_modal()
