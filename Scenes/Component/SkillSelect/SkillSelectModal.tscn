@@ -1,0 +1,232 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkm5j8p2qr3vl"]
+
+[ext_resource type="Script" uid="uid://bky7j6h5em1l8" path="res://Scenes/Component/SkillSelect/skill_select_modal.gd" id="1_skill"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1skill"]
+bg_color = Color(0.1, 0.1, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.3, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="SkillSelectModal" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_skill")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="ModalPanel" type="Panel" parent="."]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -250.0
+offset_right = 350.0
+offset_bottom = 250.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1skill")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ModalPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="VBoxContainer" parent="ModalPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ModalPanel/VBoxContainer/Header"]
+layout_mode = 2
+text = "Choose a Skill"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="ModalPanel/VBoxContainer/Header"]
+layout_mode = 2
+text = "Select one of the following skills to learn:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="ModalPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="SkillOptions" type="HBoxContainer" parent="ModalPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SkillOption1" type="Panel" parent="ModalPanel/VBoxContainer/SkillOptions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption1/VBoxContainer"]
+layout_mode = 2
+
+[node name="SkillIcon" type="TextureRect" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption1/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+
+[node name="SkillInfo" type="VBoxContainer" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption1/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SkillName" type="Label" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption1/VBoxContainer/HBoxContainer/SkillInfo"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Skill Name"
+
+[node name="SkillDescription" type="Label" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption1/VBoxContainer/HBoxContainer/SkillInfo"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Skill description goes here..."
+autowrap_mode = 2
+
+[node name="SelectButton" type="Button" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption1/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Select This Skill"
+
+[node name="SkillOption2" type="Panel" parent="ModalPanel/VBoxContainer/SkillOptions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption2/VBoxContainer"]
+layout_mode = 2
+
+[node name="SkillIcon" type="TextureRect" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+
+[node name="SkillInfo" type="VBoxContainer" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SkillName" type="Label" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption2/VBoxContainer/HBoxContainer/SkillInfo"]
+layout_mode = 2
+text = "Skill Name"
+
+[node name="SkillDescription" type="Label" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption2/VBoxContainer/HBoxContainer/SkillInfo"]
+layout_mode = 2
+text = "Skill description goes here..."
+autowrap_mode = 2
+
+[node name="SelectButton" type="Button" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption2/VBoxContainer"]
+layout_mode = 2
+text = "Select This Skill"
+
+[node name="SkillOption3" type="Panel" parent="ModalPanel/VBoxContainer/SkillOptions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption3/VBoxContainer"]
+layout_mode = 2
+
+[node name="SkillIcon" type="TextureRect" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+
+[node name="SkillInfo" type="VBoxContainer" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption3/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SkillName" type="Label" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption3/VBoxContainer/HBoxContainer/SkillInfo"]
+layout_mode = 2
+text = "Skill Name"
+
+[node name="SkillDescription" type="Label" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption3/VBoxContainer/HBoxContainer/SkillInfo"]
+layout_mode = 2
+text = "Skill description goes here..."
+autowrap_mode = 2
+
+[node name="SelectButton" type="Button" parent="ModalPanel/VBoxContainer/SkillOptions/SkillOption3/VBoxContainer"]
+layout_mode = 2
+text = "Select This Skill"
+
+[node name="HSeparator2" type="HSeparator" parent="ModalPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="ModalPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="ModalPanel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[connection signal="gui_input" from="Background" to="." method="_on_background_clicked"]
+[connection signal="pressed" from="ModalPanel/VBoxContainer/SkillOptions/SkillOption1/VBoxContainer/SelectButton" to="." method="_on_skill_selected" binds= [0]]
+[connection signal="pressed" from="ModalPanel/VBoxContainer/SkillOptions/SkillOption2/VBoxContainer/SelectButton" to="." method="_on_skill_selected" binds= [1]]
+[connection signal="pressed" from="ModalPanel/VBoxContainer/SkillOptions/SkillOption3/VBoxContainer/SelectButton" to="." method="_on_skill_selected" binds= [2]]
+[connection signal="pressed" from="ModalPanel/VBoxContainer/ButtonContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
