@@ -67,37 +67,39 @@ text = "X"
 [node name="HSeparator" type="HSeparator" parent="ModalPanel/VBoxContainer"]
 layout_mode = 2
 
-[node name="Content" type="HBoxContainer" parent="ModalPanel/VBoxContainer"]
+[node name="Content" type="VBoxContainer" parent="ModalPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="ActiveTeam" type="VBoxContainer" parent="ModalPanel/VBoxContainer/Content"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="ActiveTeamLabel" type="Label" parent="ModalPanel/VBoxContainer/Content/ActiveTeam"]
 layout_mode = 2
 text = "Active Team"
 horizontal_alignment = 1
 
-[node name="ActiveTeamSlots" type="VBoxContainer" parent="ModalPanel/VBoxContainer/Content/ActiveTeam"]
+[node name="ActiveTeamSlots" type="HBoxContainer" parent="ModalPanel/VBoxContainer/Content/ActiveTeam"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VSeparator" type="VSeparator" parent="ModalPanel/VBoxContainer/Content"]
+[node name="VSeparator" type="HSeparator" parent="ModalPanel/VBoxContainer/Content"]
 layout_mode = 2
 
 [node name="Inventory" type="VBoxContainer" parent="ModalPanel/VBoxContainer/Content"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="InventoryLabel" type="Label" parent="ModalPanel/VBoxContainer/Content/Inventory"]
 layout_mode = 2
 text = "Pet Inventory"
 horizontal_alignment = 1
 
-[node name="InventorySlots" type="VBoxContainer" parent="ModalPanel/VBoxContainer/Content/Inventory"]
+[node name="InventorySlots" type="HBoxContainer" parent="ModalPanel/VBoxContainer/Content/Inventory"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3

@@ -18,6 +18,7 @@ corner_radius_bottom_left = 5
 custom_minimum_size = Vector2(80, 100)
 layout_mode = 3
 anchors_preset = 0
+size_flags_horizontal = 3
 script = ExtResource("1_8xqnf")
 
 [node name="SlotBackground" type="Panel" parent="."]
