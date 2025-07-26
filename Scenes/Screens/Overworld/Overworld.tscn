@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b5wiob1qsvgme"]
 
-[ext_resource type="Script" uid="uid://b86om6jc1myiq" path="res://Scenes/Screens/Overworld/overworld_manager.gd" id="1_b4646"]
+[ext_resource type="Script" path="res://Scenes/Screens/Overworld/OverworldManagerIntegrated.gd" id="1_b4646"]
 [ext_resource type="PackedScene" uid="uid://meys4iq7byla" path="res://Scenes/Component/Player_Overworld/Player_Overworld.tscn" id="1_nkdty"]
 [ext_resource type="Script" uid="uid://dkguj0nkr84ft" path="res://Scenes/Screens/Overworld/ui_manager.gd" id="3_6x3sf"]
 [ext_resource type="PackedScene" uid="uid://ce3v12qhxd3ci" path="res://Scenes/Component/ModifierList/ModifierList.tscn" id="3_sm4cn"]
@@ -11,8 +11,6 @@
 
 [node name="OverworldManager" type="Node" parent="."]
 script = ExtResource("1_b4646")
-maxDepth = 4
-maxWidth = 2
 
 [node name="GlobalUI" type="CanvasLayer" parent="."]
 
