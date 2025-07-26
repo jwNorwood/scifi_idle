@@ -1,0 +1,294 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8m4xk5n7qr2s"]
+
+[ext_resource type="Script" path="res://Scenes/Screens/PetSelection/PetSelectionScreen.gd" id="1_x5k3m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.15, 0.15, 0.25, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.5, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2"]
+bg_color = Color(0.2, 0.4, 0.7, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.3, 0.6, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PetSelectionScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_x5k3m")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.05, 0.05, 0.1, 1)
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -40.0
+
+[node name="Title" type="Label" parent="MainContainer"]
+layout_mode = 2
+text = "Choose Your Starting Pet"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="MainContainer"]
+layout_mode = 2
+text = "Select one of the three pets below to begin your journey"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="PetOptionsContainer" type="HBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+alignment = 1
+
+[node name="Pet1Option" type="Panel" parent="MainContainer/PetOptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="Pet1Content" type="VBoxContainer" parent="MainContainer/PetOptionsContainer/Pet1Option"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="Pet1Image" type="TextureRect" parent="MainContainer/PetOptionsContainer/Pet1Option/Pet1Content"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Pet1Name" type="Label" parent="MainContainer/PetOptionsContainer/Pet1Option/Pet1Content"]
+layout_mode = 2
+text = "Flametail"
+horizontal_alignment = 1
+
+[node name="Pet1Stats" type="VBoxContainer" parent="MainContainer/PetOptionsContainer/Pet1Option/Pet1Content"]
+layout_mode = 2
+
+[node name="Pet1Attack" type="Label" parent="MainContainer/PetOptionsContainer/Pet1Option/Pet1Content/Pet1Stats"]
+layout_mode = 2
+text = "Attack: 15"
+horizontal_alignment = 1
+
+[node name="Pet1Health" type="Label" parent="MainContainer/PetOptionsContainer/Pet1Option/Pet1Content/Pet1Stats"]
+layout_mode = 2
+text = "Health: 80"
+horizontal_alignment = 1
+
+[node name="Pet1Speed" type="Label" parent="MainContainer/PetOptionsContainer/Pet1Option/Pet1Content/Pet1Stats"]
+layout_mode = 2
+text = "Speed: 12"
+horizontal_alignment = 1
+
+[node name="Pet1Mana" type="Label" parent="MainContainer/PetOptionsContainer/Pet1Option/Pet1Content/Pet1Stats"]
+layout_mode = 2
+text = "Mana: 15"
+horizontal_alignment = 1
+
+[node name="Pet1Description" type="Label" parent="MainContainer/PetOptionsContainer/Pet1Option/Pet1Content"]
+layout_mode = 2
+text = "A fierce fire-type pet with balanced stats and powerful flame attacks."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Pet1Button" type="Button" parent="MainContainer/PetOptionsContainer/Pet1Option/Pet1Content"]
+layout_mode = 2
+text = "Choose Flametail"
+theme_override_styles/hover = SubResource("StyleBoxFlat_2")
+
+[node name="Spacer1" type="Control" parent="MainContainer/PetOptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="Pet2Option" type="Panel" parent="MainContainer/PetOptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="Pet2Content" type="VBoxContainer" parent="MainContainer/PetOptionsContainer/Pet2Option"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="Pet2Image" type="TextureRect" parent="MainContainer/PetOptionsContainer/Pet2Option/Pet2Content"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Pet2Name" type="Label" parent="MainContainer/PetOptionsContainer/Pet2Option/Pet2Content"]
+layout_mode = 2
+text = "Aquashield"
+horizontal_alignment = 1
+
+[node name="Pet2Stats" type="VBoxContainer" parent="MainContainer/PetOptionsContainer/Pet2Option/Pet2Content"]
+layout_mode = 2
+
+[node name="Pet2Attack" type="Label" parent="MainContainer/PetOptionsContainer/Pet2Option/Pet2Content/Pet2Stats"]
+layout_mode = 2
+text = "Attack: 10"
+horizontal_alignment = 1
+
+[node name="Pet2Health" type="Label" parent="MainContainer/PetOptionsContainer/Pet2Option/Pet2Content/Pet2Stats"]
+layout_mode = 2
+text = "Health: 120"
+horizontal_alignment = 1
+
+[node name="Pet2Speed" type="Label" parent="MainContainer/PetOptionsContainer/Pet2Option/Pet2Content/Pet2Stats"]
+layout_mode = 2
+text = "Speed: 8"
+horizontal_alignment = 1
+
+[node name="Pet2Mana" type="Label" parent="MainContainer/PetOptionsContainer/Pet2Option/Pet2Content/Pet2Stats"]
+layout_mode = 2
+text = "Mana: 20"
+horizontal_alignment = 1
+
+[node name="Pet2Description" type="Label" parent="MainContainer/PetOptionsContainer/Pet2Option/Pet2Content"]
+layout_mode = 2
+text = "A defensive water-type pet with high health and strong protective abilities."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Pet2Button" type="Button" parent="MainContainer/PetOptionsContainer/Pet2Option/Pet2Content"]
+layout_mode = 2
+text = "Choose Aquashield"
+theme_override_styles/hover = SubResource("StyleBoxFlat_2")
+
+[node name="Spacer2" type="Control" parent="MainContainer/PetOptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="Pet3Option" type="Panel" parent="MainContainer/PetOptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="Pet3Content" type="VBoxContainer" parent="MainContainer/PetOptionsContainer/Pet3Option"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="Pet3Image" type="TextureRect" parent="MainContainer/PetOptionsContainer/Pet3Option/Pet3Content"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Pet3Name" type="Label" parent="MainContainer/PetOptionsContainer/Pet3Option/Pet3Content"]
+layout_mode = 2
+text = "Voltdash"
+horizontal_alignment = 1
+
+[node name="Pet3Stats" type="VBoxContainer" parent="MainContainer/PetOptionsContainer/Pet3Option/Pet3Content"]
+layout_mode = 2
+
+[node name="Pet3Attack" type="Label" parent="MainContainer/PetOptionsContainer/Pet3Option/Pet3Content/Pet3Stats"]
+layout_mode = 2
+text = "Attack: 12"
+horizontal_alignment = 1
+
+[node name="Pet3Health" type="Label" parent="MainContainer/PetOptionsContainer/Pet3Option/Pet3Content/Pet3Stats"]
+layout_mode = 2
+text = "Health: 90"
+horizontal_alignment = 1
+
+[node name="Pet3Speed" type="Label" parent="MainContainer/PetOptionsContainer/Pet3Option/Pet3Content/Pet3Stats"]
+layout_mode = 2
+text = "Speed: 18"
+horizontal_alignment = 1
+
+[node name="Pet3Mana" type="Label" parent="MainContainer/PetOptionsContainer/Pet3Option/Pet3Content/Pet3Stats"]
+layout_mode = 2
+text = "Mana: 12"
+horizontal_alignment = 1
+
+[node name="Pet3Description" type="Label" parent="MainContainer/PetOptionsContainer/Pet3Option/Pet3Content"]
+layout_mode = 2
+text = "A lightning-fast electric pet with high speed and quick electric attacks."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Pet3Button" type="Button" parent="MainContainer/PetOptionsContainer/Pet3Option/Pet3Content"]
+layout_mode = 2
+text = "Choose Voltdash"
+theme_override_styles/hover = SubResource("StyleBoxFlat_2")
+
+[node name="Spacer2" type="Control" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="BottomContainer" type="HBoxContainer" parent="MainContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MainContainer/BottomContainer"]
+layout_mode = 2
+text = "Back to Menu"
+
+[node name="SelectedPetLabel" type="Label" parent="MainContainer/BottomContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Select a pet to continue..."
+horizontal_alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="MainContainer/BottomContainer"]
+layout_mode = 2
+text = "Confirm Selection"
+disabled = true
+
+[connection signal="pressed" from="MainContainer/PetOptionsContainer/Pet1Option/Pet1Content/Pet1Button" to="." method="_on_pet_1_selected"]
+[connection signal="pressed" from="MainContainer/PetOptionsContainer/Pet2Option/Pet2Content/Pet2Button" to="." method="_on_pet_2_selected"]
+[connection signal="pressed" from="MainContainer/PetOptionsContainer/Pet3Option/Pet3Content/Pet3Button" to="." method="_on_pet_3_selected"]
+[connection signal="pressed" from="MainContainer/BottomContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MainContainer/BottomContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]

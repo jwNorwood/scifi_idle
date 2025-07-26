@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://dw8yap5q2m1n7"]
+
+[ext_resource type="PackedScene" uid="uid://bshjive2cjmsl" path="res://Scenes/Screens/MainMenu/MainMenu.tscn" id="1_g5h3k"]
+
+[node name="NewGameFlowDemo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Instructions" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -100.0
+offset_right = 500.0
+offset_bottom = -20.0
+text = "New Game Flow Demo:
+1. Click 'New Game' to start pet selection
+2. Choose your starter pet
+3. Get taken to the overworld with your new pet
+
+The 'Continue' button will be disabled until you have save data."
+vertical_alignment = 2
+
+[node name="MainMenu" parent="." instance=ExtResource("1_g5h3k")]
