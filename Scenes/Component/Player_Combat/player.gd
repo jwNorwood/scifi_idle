@@ -26,13 +26,28 @@ func getTarget():
 	return enemy
 
 func _ready():
+	# Wait for the combat manager to set up teams
+	await get_tree().process_frame
+	_initialize_team()
+
+func _initialize_team():
+	"""Initialize the team after it's been set by combat manager"""
 	var initialHealth = 0
 	
 	if(reverseOrder):
 		for child in content.get_children():
 			content.move_child(child, 0)
 
+	# Check if team is populated
+	if team.is_empty():
+		print("Warning: No team assigned to ", name)
+		return
+
 	for pet in team:
+		if not pet:
+			print("Warning: Null pet found in team")
+			continue
+		
 		initialHealth += pet.health
 		var newPet = pet_scene.instantiate()
 		newPet.parent = self
@@ -42,8 +57,11 @@ func _ready():
 	healthBar.value = initialHealth
 	healthBar.max_value = initialHealth
 	health = initialHealth
+	maxHealth = initialHealth
+	
+	print(name, " team initialized with ", team.size(), " pets, health: ", initialHealth)
 
-func addPet(p):
+func addPet(_p):
 	if (!pet_scene):
 		pass
 	

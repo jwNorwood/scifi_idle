@@ -34,7 +34,7 @@ func attack():
 	
 func specialAttack():
 	print("Special Attack: ", pet)
-	if (pet.active_special_attack.has_method("trigger_attack")):
+	if (pet.active_special_attack && pet.active_special_attack.has_method("trigger_attack")):
 		pet.active_special_attack.trigger_attack(parent)
 	assist()
 	mana = 0

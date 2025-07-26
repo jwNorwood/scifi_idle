@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3nax8k7p2q5r"]
+
+[ext_resource type="PackedScene" uid="uid://c30rrpu02xnbm" path="res://Scenes/Screens/Combat/Combat.tscn" id="1_x7w2m"]
+
+[node name="CombatDemo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Instructions" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -120.0
+offset_right = 600.0
+offset_bottom = -20.0
+text = "Combat Demo:
+• Player team will use pets from GlobalPlayer.playerTeam
+• Enemy team will be randomly generated wild pets
+• If no player pets exist, a fallback pet will be created
+• Combat should now reflect your actual team composition!"
+vertical_alignment = 2
+
+[node name="Combat" parent="." instance=ExtResource("1_x7w2m")]

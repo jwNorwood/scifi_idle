@@ -15,15 +15,12 @@
 
 [node name="Player" parent="Game Elements" groups=["player"] instance=ExtResource("1_mgmfq")]
 position = Vector2(404, 368)
-team = Array[Resource]([ExtResource("2_w8ikl"), ExtResource("3_x2d47")])
 
 [node name="Player2" parent="Game Elements" groups=["player"] instance=ExtResource("1_mgmfq")]
 position = Vector2(404, 368)
-team = Array[Resource]([ExtResource("2_w8ikl"), ExtResource("3_x2d47")])
 
 [node name="Enemy" parent="Game Elements" groups=["enemy"] instance=ExtResource("1_mgmfq")]
 position = Vector2(413, 29)
-team = Array[Resource]([ExtResource("4_u4ych"), ExtResource("4_u4ych")])
 targetNode = "player"
 reverseOrder = true
 
