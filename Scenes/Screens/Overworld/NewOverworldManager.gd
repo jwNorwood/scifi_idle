@@ -30,6 +30,9 @@ func _ready():
 	_setup_map_generator()
 	_generate_and_display_map()
 	_setup_player()
+	
+	# Connect to map regeneration event
+	EventBus.map_regeneration_requested.connect(_on_map_regeneration_requested)
 
 func _input(event):
 	"""Handle input for testing"""
@@ -234,6 +237,11 @@ func regenerate_map():
 	# Generate new map
 	_generate_and_display_map()
 	_setup_player()
+
+func _on_map_regeneration_requested():
+	"""Handle map regeneration request from EventBus (e.g., after defeating Regional Champion)"""
+	print("Received map regeneration request - generating new area!")
+	regenerate_map()
 
 # Debug functions
 func print_map_structure():

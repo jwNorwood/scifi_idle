@@ -188,16 +188,36 @@ func _confirm_selection():
 		# Clear existing pets and add the starter
 		GlobalPlayer.playerTeam.clear()
 		GlobalPlayer.playerTeam.append(selected_pet)
+		GlobalPlayer.has_selected_initial_pet = true  # Mark that initial pet has been selected
 		print("Added ", selected_pet.name, " to player's team")
 	
 	# Emit confirmation signal
 	selection_confirmed.emit(selected_pet)
 	
-	# Transition to the next scene (e.g., overworld or main game)
-	_go_to_overworld()
+	# Start with a wild encounter to test the new pet
+	_start_initial_combat()
+
+func _start_initial_combat():
+	"""Start the first combat encounter with the new pet"""
+	# Show a brief message about the encounter
+	selected_pet_label.text = "A wild creature appears to test your new companion!"
+	confirm_button.disabled = true
+	
+	# Set encounter type for the combat
+	if GlobalPlayer:
+		GlobalPlayer.current_encounter_type = "WILD"
+	
+	# Brief delay before transitioning to combat
+	await get_tree().create_timer(2.0).timeout
+	
+	# Go directly to combat scene
+	if SceneManager:
+		SceneManager.change_scene("res://Scenes/Screens/Combat/Combat.tscn")
+	else:
+		get_tree().change_scene_to_file("res://Scenes/Screens/Combat/Combat.tscn")
 
 func _go_to_overworld():
-	"""Transition to the overworld scene"""
+	"""Transition to the overworld scene (fallback method)"""
 	# Show a brief confirmation message
 	selected_pet_label.text = "Welcome to your adventure with " + selected_pet.name + "!"
 	confirm_button.disabled = true

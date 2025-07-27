@@ -108,16 +108,8 @@ func _generate_node_structure():
 		for node_index in range(nodes_in_layer):
 			var encounter_type: String
 			
-			# Check if this is the final layer (just before end node)
-			if layer == layers:
-				# Final layer: make at least one Regional Champion, others can be random
-				if node_index == 0:
-					encounter_type = "REGIONAL_CHAMPION"  # Guarantee at least one Regional Champion
-				else:
-					encounter_type = _get_random_encounter_type_for_final_layer()
-			else:
-				# Regular layers: no Regional Champions allowed
-				encounter_type = _get_random_encounter_type_excluding_champion()
+			# Regular layers: no Regional Champions allowed
+			encounter_type = _get_random_encounter_type_excluding_champion()
 			
 			map_data[node_id] = {
 				"id": node_id,
@@ -136,7 +128,7 @@ func _generate_node_structure():
 	var end_id = node_id
 	map_data[end_id] = {
 		"id": end_id,
-		"type": "end",
+		"type": "REGIONAL_CHAMPION",
 		"layer": layers + 1,
 		"children": []
 	}
@@ -183,7 +175,7 @@ func _get_random_encounter_type_for_final_layer() -> String:
 	elif rand < 0.75:
 		return "SHOP"
 	else:
-		return "REGIONAL_CHAMPION"  # Higher chance in final layer
+		return "REGIONAL_CHAMPION"  # Rare chance for variety
 
 func _connect_layers(previous_nodes: Array[int], current_nodes: Array[int]):
 	"""Create connections between two layers ensuring every node is reachable"""

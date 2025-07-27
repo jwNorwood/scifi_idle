@@ -30,6 +30,9 @@ func _ready():
 	# Player event connections
 	player.travel_finished.connect(_on_player_finished_travel)
 	
+	# Connect to map regeneration event
+	EventBus.map_regeneration_requested.connect(_on_map_regeneration_requested)
+	
 	# Generate and display the overworld map
 	generate_overworld()
 
@@ -272,6 +275,11 @@ func get_encounter_description(encounter: Encounter) -> String:
 # Regenerate the map (useful for testing or map variations)
 func regenerate_map():
 	generate_overworld()
+
+func _on_map_regeneration_requested():
+	"""Handle map regeneration request from EventBus (e.g., after defeating Regional Champion)"""
+	print("Received map regeneration request - generating new area!")
+	regenerate_map()
 
 # Debug function to test different map layouts
 func _input(event):

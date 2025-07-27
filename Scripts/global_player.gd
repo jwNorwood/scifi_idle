@@ -11,6 +11,7 @@ var playerLevel = 1
 
 # Current encounter info for combat
 var current_encounter_type: String = "WILD"
+var has_selected_initial_pet: bool = false  # Track if player has selected their first pet
 
 func _init_test_data():
 	# Create some test pets for demonstration

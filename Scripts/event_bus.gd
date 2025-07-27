@@ -17,4 +17,7 @@ signal player_team_value_updated(team: Array)
 signal player_inventory_team_value_updated(team: Array)
 signal player_modifiers_value_updated(modifiers: Array)
 
+# Map Events
+signal map_regeneration_requested()
+
 # Settings

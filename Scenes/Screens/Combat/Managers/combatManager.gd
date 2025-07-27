@@ -13,6 +13,7 @@ var expToReward: int = 1
 var defeated_wild_pets: Array[Pet] = []
 var game_ended: bool = false  # Flag to prevent multiple reward modal calls
 var combat_started: bool = false  # Flag to track if combat has actually started
+var defeated_regional_champion: bool = false  # Flag to track if we defeated a Regional Champion
 
 # Available enemy pets for random encounters
 var wild_pet_pool: Array[Pet] = []
@@ -25,6 +26,13 @@ func _setup_combat():
 	"""Initialize combat with player's actual team and random enemy"""
 	game_ended = false  # Reset game ended flag for new combat
 	combat_started = false
+	defeated_regional_champion = false  # Reset Regional Champion flag
+	
+	# Check if we're fighting a Regional Champion
+	var encounter_type = GlobalPlayer.current_encounter_type if GlobalPlayer else "WILD"
+	if encounter_type == "REGIONAL_CHAMPION":
+		print("Preparing for Regional Champion battle!")
+	
 	_create_wild_pet_pool()
 	_setup_player_team()
 	_setup_enemy_team()
@@ -179,6 +187,13 @@ func onGameEnd(victory):
 	
 	game_ended = true
 	print("victory ", victory)
+	
+	# Check if we defeated a Regional Champion
+	var encounter_type = GlobalPlayer.current_encounter_type if GlobalPlayer else "WILD"
+	if victory and encounter_type == "REGIONAL_CHAMPION":
+		defeated_regional_champion = true
+		print("Regional Champion defeated! New map will be generated after exit.")
+	
 	EventBus.player_experience_change.emit(expToReward)
 	
 	if victory:
@@ -257,8 +272,26 @@ func _add_pet_to_team_directly(pet: Pet):
 		EventBus.player_team_change.emit(GlobalPlayer.playerTeam)
 
 func returnToOverworld():
-	# change the scene
-	self.get_parent().queue_free()
+	# Check if this was the initial pet combat
+	var is_initial_combat = GlobalPlayer.has_selected_initial_pet if GlobalPlayer else false
+	
+	# If we defeated a Regional Champion, request map regeneration
+	if defeated_regional_champion:
+		print("Requesting new map generation after Regional Champion victory!")
+		EventBus.map_regeneration_requested.emit()
+	
+	# For initial combat, go to overworld; otherwise return to previous scene
+	if is_initial_combat and GlobalPlayer:
+		# Mark that we've completed the initial combat flow
+		GlobalPlayer.has_selected_initial_pet = false  # Reset the flag
+		print("Initial combat completed, transitioning to overworld...")
+		
+		# Go to overworld scene
+		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Screens/Overworld/Overworld.tscn")
+	else:
+		# Normal combat exit - just close the combat scene
+		self.get_parent().queue_free()
+	
 	# something else
 	#on modal closed	
 
@@ -273,6 +306,7 @@ func _show_opening_dialogue():
 		return
 	
 	var encounter_type = GlobalPlayer.current_encounter_type if GlobalPlayer else "WILD"
+	var is_initial_combat = GlobalPlayer.has_selected_initial_pet if GlobalPlayer else false
 	var enemy_name = "Wild Creature"
 	
 	# Get enemy name from the enemy team
@@ -283,34 +317,42 @@ func _show_opening_dialogue():
 	
 	var opening_messages: Array[String] = []
 	
-	# Customize dialogue based on encounter type
-	match encounter_type:
-		"WILD":
-			opening_messages = [
-				"[center][color=yellow]A wild " + enemy_name + " appears![/color][/center]",
-				"[center][color=cyan]Prepare for battle![/color][/center]"
-			]
-		"TRAINER":
-			opening_messages = [
-				"[center][color=orange]A trainer challenges you to battle![/color][/center]",
-				"[center][color=cyan]They have multiple pets ready to fight![/color][/center]"
-			]
-		"MYSTERY":
-			opening_messages = [
-				"[center][color=purple]A mysterious encounter unfolds...[/color][/center]",
-				"[center][color=cyan]Prepare for the unknown![/color][/center]"
-			]
-		"REGIONAL_CHAMPION":
-			opening_messages = [
-				"[center][color=gold]A Regional Champion blocks your path![/color][/center]",
-				"[center][color=red]They command a full team of 5 powerful Champion pets![/color][/center]",
-				"[center][color=orange]This will be your greatest challenge yet![/color][/center]"
-			]
-		_:
-			opening_messages = [
-				"[center][color=yellow]A wild " + enemy_name + " appears![/color][/center]",
-				"[center][color=cyan]Prepare for battle![/color][/center]"
-			]
+	# Special dialogue for initial combat
+	if is_initial_combat:
+		opening_messages = [
+			"[center][color=cyan]Time to test your new companion![/color][/center]",
+			"[center][color=yellow]A wild " + enemy_name + " appears for training![/color][/center]",
+			"[center][color=lime]Show them what you've learned![/color][/center]"
+		]
+	else:
+		# Customize dialogue based on encounter type for regular combat
+		match encounter_type:
+			"WILD":
+				opening_messages = [
+					"[center][color=yellow]A wild " + enemy_name + " appears![/color][/center]",
+					"[center][color=cyan]Prepare for battle![/color][/center]"
+				]
+			"TRAINER":
+				opening_messages = [
+					"[center][color=orange]A trainer challenges you to battle![/color][/center]",
+					"[center][color=cyan]They have multiple pets ready to fight![/color][/center]"
+				]
+			"MYSTERY":
+				opening_messages = [
+					"[center][color=purple]A mysterious encounter unfolds...[/color][/center]",
+					"[center][color=cyan]Prepare for the unknown![/color][/center]"
+				]
+			"REGIONAL_CHAMPION":
+				opening_messages = [
+					"[center][color=gold]A Regional Champion blocks your path![/color][/center]",
+					"[center][color=red]They command a full team of 5 powerful Champion pets![/color][/center]",
+					"[center][color=orange]This will be your greatest challenge yet![/color][/center]"
+				]
+			_:
+				opening_messages = [
+					"[center][color=yellow]A wild " + enemy_name + " appears![/color][/center]",
+					"[center][color=cyan]Prepare for battle![/color][/center]"
+				]
 	
 	# Connect to dialogue finished signal
 	if not dialogue.dialogue_finished.is_connected(_on_opening_dialogue_finished):
@@ -340,36 +382,46 @@ func _show_victory_dialogue():
 		return
 	
 	var encounter_type = GlobalPlayer.current_encounter_type if GlobalPlayer else "WILD"
+	var is_initial_combat = GlobalPlayer.has_selected_initial_pet if GlobalPlayer else false
 	var victory_messages: Array[String] = []
 	
-	# Customize victory dialogue based on encounter type
-	match encounter_type:
-		"WILD":
-			victory_messages = [
-				"[center][color=green]Victory![/color][/center]",
-				"[center][color=lime]You defeated the wild creature![/color][/center]"
-			]
-		"TRAINER":
-			victory_messages = [
-				"[center][color=green]Victory![/color][/center]",
-				"[center][color=lime]You defeated the trainer and their team![/color][/center]"
-			]
-		"MYSTERY":
-			victory_messages = [
-				"[center][color=green]Victory![/color][/center]",
-				"[center][color=lime]You overcame the mysterious challenge![/color][/center]"
-			]
-		"REGIONAL_CHAMPION":
-			victory_messages = [
-				"[center][color=gold]LEGENDARY VICTORY![/color][/center]",
-				"[center][color=yellow]You defeated the Regional Champion![/color][/center]",
-				"[center][color=lime]You are now a true champion yourself![/color][/center]"
-			]
-		_:
-			victory_messages = [
-				"[center][color=green]Victory![/color][/center]",
-				"[center][color=lime]You defeated the wild creature![/color][/center]"
-			]
+	# Special dialogue for initial combat victory
+	if is_initial_combat:
+		victory_messages = [
+			"[center][color=gold]Excellent work![/color][/center]",
+			"[center][color=lime]You and your companion fought well together![/color][/center]",
+			"[center][color=cyan]You're ready for the adventures ahead![/color][/center]"
+		]
+	else:
+		# Customize victory dialogue based on encounter type for regular combat
+		match encounter_type:
+			"WILD":
+				victory_messages = [
+					"[center][color=green]Victory![/color][/center]",
+					"[center][color=lime]You defeated the wild creature![/color][/center]"
+				]
+			"TRAINER":
+				victory_messages = [
+					"[center][color=green]Victory![/color][/center]",
+					"[center][color=lime]You defeated the trainer and their team![/color][/center]"
+				]
+			"MYSTERY":
+				victory_messages = [
+					"[center][color=green]Victory![/color][/center]",
+					"[center][color=lime]You overcame the mysterious challenge![/color][/center]"
+				]
+			"REGIONAL_CHAMPION":
+				victory_messages = [
+					"[center][color=gold]LEGENDARY VICTORY![/color][/center]",
+					"[center][color=yellow]You defeated the Regional Champion![/color][/center]",
+					"[center][color=lime]You are now a true champion yourself![/color][/center]",
+					"[center][color=cyan]A new area awaits your exploration![/color][/center]"
+				]
+			_:
+				victory_messages = [
+					"[center][color=green]Victory![/color][/center]",
+					"[center][color=lime]You defeated the wild creature![/color][/center]"
+				]
 	
 	# Connect to dialogue finished signal
 	if not dialogue.dialogue_finished.is_connected(_on_victory_dialogue_finished):
