@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Skill/Skill.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+name = "Golden Touch"
+description = "Increases gold rewards from all combat encounters"
+skill_type = 1  # SkillEnums.SkillType.ECONOMIC
+effect_type = 8  # SkillEnums.EffectType.GOLD_REWARD_PERCENT
+effect_value = 25.0
+rarity = 2  # SkillEnums.Rarity.RARE
+unlock_level = 5
+cost = 500
+max_level = 3
+current_level = 1
+value_per_level = 10.0

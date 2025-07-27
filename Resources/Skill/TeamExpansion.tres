@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Skill/Skill.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+name = "Team Expansion"
+description = "Increases your maximum team size"
+skill_type = 3  # SkillEnums.SkillType.UTILITY
+effect_type = 14  # SkillEnums.EffectType.TEAM_SIZE_BONUS
+effect_value = 1.0
+rarity = 3  # SkillEnums.Rarity.EPIC
+unlock_level = 10
+cost = 1000
+max_level = 3
+current_level = 1
+value_per_level = 1.0

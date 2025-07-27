@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Skill/Skill.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+name = "Master Trainer"
+description = "Increases your pet capture rate in combat"
+skill_type = 3  # SkillEnums.SkillType.UTILITY
+effect_type = 13  # SkillEnums.EffectType.CAPTURE_RATE_PERCENT
+effect_value = 20.0
+rarity = 2  # SkillEnums.Rarity.RARE
+unlock_level = 7
+cost = 400
+max_level = 3
+current_level = 1
+value_per_level = 15.0

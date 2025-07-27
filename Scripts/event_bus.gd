@@ -17,6 +17,11 @@ signal player_team_value_updated(team: Array)
 signal player_inventory_team_value_updated(team: Array)
 signal player_modifiers_value_updated(modifiers: Array)
 
+# Skill Events
+signal player_skills_changed(skills: Array)
+signal skill_unlocked(skill)
+signal skill_upgraded(skill)
+
 # Map Events
 signal map_regeneration_requested()
 

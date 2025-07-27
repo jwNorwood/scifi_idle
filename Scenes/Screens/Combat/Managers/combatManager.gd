@@ -58,16 +58,35 @@ func _setup_player_team():
 		return
 	
 	if GlobalPlayer and not GlobalPlayer.playerTeam.is_empty():
-		# Convert Array[Pet] to Array[Resource] for compatibility
+		# Convert Array[Pet] to Array[Resource] for compatibility and apply skill modifiers
 		var resource_team: Array[Resource] = []
 		for pet in GlobalPlayer.playerTeam:
 			if pet:
-				resource_team.append(pet as Resource)
+				# Create a copy of the pet to avoid modifying the original
+				var combat_pet = Pet.new()
+				combat_pet.name = pet.name
+				combat_pet.attack = pet.attack
+				combat_pet.health = pet.health
+				combat_pet.speed = pet.speed
+				combat_pet.mana_max = pet.mana_max
+				combat_pet.mana_attack = pet.mana_attack
+				combat_pet.mana_start = pet.mana_start
+				combat_pet.texture_card = pet.texture_card
+				combat_pet.special_attacks = pet.special_attacks
+				combat_pet.active_special_attack = pet.active_special_attack
+				
+				# Apply skill modifiers
+				if GlobalPlayer.skill_manager:
+					combat_pet = GlobalPlayer.skill_manager.apply_pet_modifiers(combat_pet)
+				
+				resource_team.append(combat_pet as Resource)
 		
 		player_combat.team = resource_team
-		print("Player team loaded: ", GlobalPlayer.playerTeam.size(), " pets")
-		for pet in GlobalPlayer.playerTeam:
-			print("  - ", pet.name if pet else "Unknown Pet")
+		print("Player team loaded: ", GlobalPlayer.playerTeam.size(), " pets (with skill modifiers)")
+		for i in range(resource_team.size()):
+			var pet = resource_team[i] as Pet
+			if pet:
+				print("  - ", pet.name, " (Health: ", pet.health, ", Attack: ", pet.attack, ")")
 	else:
 		# Fallback: create a basic team if no pets exist
 		print("Warning: No player team found, creating fallback team")
@@ -230,6 +249,12 @@ func _handle_victory_rewards():
 	
 	# Apply experience multiplier
 	expToReward = int(expToReward * experience_multiplier)
+	
+	# Apply skill modifiers to rewards
+	if GlobalPlayer and GlobalPlayer.skill_manager:
+		gold_reward = GlobalPlayer.skill_manager.calculate_final_gold_reward(gold_reward)
+		expToReward = GlobalPlayer.skill_manager.calculate_final_experience(expToReward)
+		print("Applied skill modifiers - Gold: ", gold_reward, ", Experience: ", expToReward)
 	
 	# Always reward pets after combat victory
 	var captured_pets: Array[Pet] = []

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Skill/Skill.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+name = "Vitality Boost"
+description = "Increases the maximum health of all your pets"
+skill_type = 0  # SkillEnums.SkillType.COMBAT
+effect_type = 0  # SkillEnums.EffectType.HEALTH_PERCENT
+effect_value = 10.0
+rarity = 0  # SkillEnums.Rarity.COMMON
+unlock_level = 1
+cost = 100
+max_level = 5
+current_level = 1
+value_per_level = 5.0

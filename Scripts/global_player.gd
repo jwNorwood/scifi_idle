@@ -1,5 +1,8 @@
 extends Node
 
+# Preload classes
+const SkillManager = preload("res://Classes/SkillManager.gd")
+
 # Player
 var playerGold = 10
 var playerTeam: Array[Pet] = []
@@ -8,6 +11,9 @@ var playerItems = []
 var playerModifiers = []
 var playerExp: int = 0
 var playerLevel = 1
+
+# Skill system
+var skill_manager: SkillManager
 
 # Current encounter info for combat
 var current_encounter_type: String = "WILD"
@@ -91,6 +97,10 @@ func modifierAdd(newModifier: Dictionary):
 	playerModifiers.append(newModifier)
 	
 func _ready():
+	# Initialize skill manager
+	skill_manager = SkillManager.new()
+	add_child(skill_manager)
+	
 	_init_test_data()
 	EventBus.player_gold_change.connect(goldChange)
 	EventBus.player_experience_change.connect(experienceChange)
