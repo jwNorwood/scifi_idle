@@ -9,6 +9,9 @@ var playerModifiers = []
 var playerExp: int = 0
 var playerLevel = 1
 
+# Current encounter info for combat
+var current_encounter_type: String = "WILD"
+
 func _init_test_data():
 	# Create some test pets for demonstration
 	if playerTeam.is_empty() and playerTeamInventory.is_empty():

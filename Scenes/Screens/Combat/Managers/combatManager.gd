@@ -78,30 +78,52 @@ func _create_fallback_player_team():
 		GlobalPlayer.playerTeam = [fallback_pet]
 
 func _setup_enemy_team():
-	"""Set up random enemy team"""
+	"""Set up random enemy team based on encounter type"""
 	if not enemy_combat:
 		print("Warning: No enemy combat node found!")
 		return
 	
-	# Generate exactly 1 wild pet for the enemy (simplified combat)
+	# Determine team size based on encounter type
+	var team_size = 1  # Default for WILD encounters
+	var encounter_type = GlobalPlayer.current_encounter_type if GlobalPlayer else "WILD"
+	
+	print("Setting up enemy team for encounter type: ", encounter_type)
+	
+	match encounter_type:
+		"WILD":
+			team_size = 1
+		"TRAINER":
+			team_size = randi_range(2, 3)  # 2-3 pets for trainers
+		"MYSTERY":
+			team_size = randi_range(1, 2)  # 1-2 pets for mystery encounters
+		"REGIONAL_CHAMPION":
+			team_size = 5  # Full team of 5 pets for Regional Champions
+		_:
+			team_size = 1
+	
+	# Generate enemy team
 	var enemy_team: Array[Resource] = []
-	var team_size = 1  # Always 1 pet for both wild encounters and team battles
 	
 	# Clear previous defeated pets list
 	defeated_wild_pets.clear()
 	
 	for i in range(team_size):
 		var random_pet = _get_random_wild_pet()
+		
+		# Make Regional Champion pets stronger
+		if encounter_type == "REGIONAL_CHAMPION":
+			random_pet = _create_champion_pet(random_pet)
+		
 		enemy_team.append(random_pet as Resource)
 		# Store the original pet for potential capture
 		defeated_wild_pets.append(random_pet)
 	
 	enemy_combat.team = enemy_team
-	print("Enemy team generated: ", enemy_team.size(), " pets")
+	print("Enemy team generated: ", enemy_team.size(), " pets for ", encounter_type, " encounter")
 	for pet_resource in enemy_team:
 		var pet = pet_resource as Pet
 		if pet:
-			print("  - ", pet.name)
+			print("  - ", pet.name, " (Health: ", pet.health, ", Attack: ", pet.attack, ")")
 
 func _get_random_wild_pet() -> Pet:
 	"""Get a random wild pet with slight stat variation"""
@@ -128,6 +150,23 @@ func _get_random_wild_pet() -> Pet:
 	
 	return wild_pet
 
+func _create_champion_pet(base_pet: Pet) -> Pet:
+	"""Create a stronger version of a pet for Regional Champion encounters"""
+	var champion_pet = Pet.new()
+	champion_pet.name = "Champion " + base_pet.name
+	champion_pet.texture_card = base_pet.texture_card
+	
+	# Make champion pets significantly stronger (150-200% of base stats)
+	var champion_factor = randf_range(1.5, 2.0)
+	champion_pet.attack = base_pet.attack * champion_factor
+	champion_pet.health = int(base_pet.health * champion_factor)
+	champion_pet.speed = base_pet.speed * champion_factor
+	champion_pet.mana_max = int(base_pet.mana_max * champion_factor)
+	champion_pet.mana_attack = base_pet.mana_attack
+	champion_pet.mana_start = champion_pet.mana_max
+	
+	return champion_pet
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
@@ -151,9 +190,33 @@ func onGameEnd(victory):
 
 func _handle_victory_rewards():
 	"""Handle rewards for winning combat"""
-	var gold_reward = randi_range(10, 25)  # Random gold between 10-25
+	var encounter_type = GlobalPlayer.current_encounter_type if GlobalPlayer else "WILD"
 	
-	# Always reward a pet after combat victory
+	# Calculate rewards based on encounter type
+	var gold_reward = 10  # Base gold reward
+	var experience_multiplier = 1.0
+	
+	match encounter_type:
+		"WILD":
+			gold_reward = randi_range(10, 25)
+			experience_multiplier = 1.0
+		"TRAINER":
+			gold_reward = randi_range(25, 50)
+			experience_multiplier = 1.5
+		"MYSTERY":
+			gold_reward = randi_range(15, 35)
+			experience_multiplier = 1.2
+		"REGIONAL_CHAMPION":
+			gold_reward = randi_range(100, 200)  # Much higher gold reward
+			experience_multiplier = 3.0  # Triple experience
+		_:
+			gold_reward = randi_range(10, 25)
+			experience_multiplier = 1.0
+	
+	# Apply experience multiplier
+	expToReward = int(expToReward * experience_multiplier)
+	
+	# Always reward pets after combat victory
 	var captured_pets: Array[Pet] = []
 	
 	if not defeated_wild_pets.is_empty():
@@ -209,17 +272,45 @@ func _show_opening_dialogue():
 		_start_combat()
 		return
 	
+	var encounter_type = GlobalPlayer.current_encounter_type if GlobalPlayer else "WILD"
 	var enemy_name = "Wild Creature"
+	
 	# Get enemy name from the enemy team
 	if enemy_combat and not enemy_combat.team.is_empty():
 		var enemy_pet = enemy_combat.team[0] as Pet
 		if enemy_pet:
 			enemy_name = enemy_pet.name
 	
-	var opening_messages: Array[String] = [
-		"[center][color=yellow]A wild " + enemy_name + " appears![/color][/center]",
-		"[center][color=cyan]Prepare for battle![/color][/center]"
-	]
+	var opening_messages: Array[String] = []
+	
+	# Customize dialogue based on encounter type
+	match encounter_type:
+		"WILD":
+			opening_messages = [
+				"[center][color=yellow]A wild " + enemy_name + " appears![/color][/center]",
+				"[center][color=cyan]Prepare for battle![/color][/center]"
+			]
+		"TRAINER":
+			opening_messages = [
+				"[center][color=orange]A trainer challenges you to battle![/color][/center]",
+				"[center][color=cyan]They have multiple pets ready to fight![/color][/center]"
+			]
+		"MYSTERY":
+			opening_messages = [
+				"[center][color=purple]A mysterious encounter unfolds...[/color][/center]",
+				"[center][color=cyan]Prepare for the unknown![/color][/center]"
+			]
+		"REGIONAL_CHAMPION":
+			opening_messages = [
+				"[center][color=gold]A Regional Champion blocks your path![/color][/center]",
+				"[center][color=red]They command a full team of 5 powerful Champion pets![/color][/center]",
+				"[center][color=orange]This will be your greatest challenge yet![/color][/center]"
+			]
+		_:
+			opening_messages = [
+				"[center][color=yellow]A wild " + enemy_name + " appears![/color][/center]",
+				"[center][color=cyan]Prepare for battle![/color][/center]"
+			]
 	
 	# Connect to dialogue finished signal
 	if not dialogue.dialogue_finished.is_connected(_on_opening_dialogue_finished):
@@ -248,10 +339,37 @@ func _show_victory_dialogue():
 		_handle_victory_rewards()
 		return
 	
-	var victory_messages: Array[String] = [
-		"[center][color=green]Victory![/color][/center]",
-		"[center][color=lime]You defeated the wild creature![/color][/center]"
-	]
+	var encounter_type = GlobalPlayer.current_encounter_type if GlobalPlayer else "WILD"
+	var victory_messages: Array[String] = []
+	
+	# Customize victory dialogue based on encounter type
+	match encounter_type:
+		"WILD":
+			victory_messages = [
+				"[center][color=green]Victory![/color][/center]",
+				"[center][color=lime]You defeated the wild creature![/color][/center]"
+			]
+		"TRAINER":
+			victory_messages = [
+				"[center][color=green]Victory![/color][/center]",
+				"[center][color=lime]You defeated the trainer and their team![/color][/center]"
+			]
+		"MYSTERY":
+			victory_messages = [
+				"[center][color=green]Victory![/color][/center]",
+				"[center][color=lime]You overcame the mysterious challenge![/color][/center]"
+			]
+		"REGIONAL_CHAMPION":
+			victory_messages = [
+				"[center][color=gold]LEGENDARY VICTORY![/color][/center]",
+				"[center][color=yellow]You defeated the Regional Champion![/color][/center]",
+				"[center][color=lime]You are now a true champion yourself![/color][/center]"
+			]
+		_:
+			victory_messages = [
+				"[center][color=green]Victory![/color][/center]",
+				"[center][color=lime]You defeated the wild creature![/color][/center]"
+			]
 	
 	# Connect to dialogue finished signal
 	if not dialogue.dialogue_finished.is_connected(_on_victory_dialogue_finished):

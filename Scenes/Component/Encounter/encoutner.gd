@@ -11,7 +11,7 @@ const ENCOUNTER_SCENE: PackedScene = preload("res://Scenes/Component/Encounter/E
 
 # change to enum
 var nodeType
-enum encounters { WILD, TRAINER, MYSTERY, SHOP } 
+enum encounters { WILD, TRAINER, MYSTERY, SHOP, REGIONAL_CHAMPION } 
 
 signal encounter_selected(encounter: Encounter)
 signal encounter_hovered(id: int)
@@ -49,6 +49,11 @@ func getEncounterInfo():
 				"color": Color.INDIAN_RED,
 				"scene": 'res://Scenes/Screens/Store/Store.tscn'
 			}
+		encounters.REGIONAL_CHAMPION:
+			return {
+				"color": Color.GOLD,
+				"scene": 'res://Scenes/Screens/Combat/Combat.tscn'
+			}
 		_:
 			return {
 				"color": Color.WHITE,
@@ -60,23 +65,23 @@ func _ready():
 	color.set_color(getEncounterInfo().color)
 
 func getEncounters():
-	var encounters = get_tree().get_nodes_in_group("encounter")
-	return encounters
+	var encounter_nodes = get_tree().get_nodes_in_group("encounter")
+	return encounter_nodes
 
 # move towards child nodes
 func moveToChildNodes():
 	return
 
 func getNodeById(i):
-	var encounters = getEncounters()
-	for encounter in encounters:
+	var encounter_nodes = getEncounters()
+	for encounter in encounter_nodes:
 		if (encounter.id == i):
 			return encounter
 	return null
 	
-func hasChildNode(id):
+func hasChildNode(child_id):
 	for child in childNodes:
-		if child.id == id:
+		if child.id == child_id:
 			return true
 	return false
 
@@ -90,6 +95,22 @@ func getPosition():
 
 
 func enterEncounter(parent: Node):
+	# Set the current encounter type in GlobalPlayer for combat manager
+	if GlobalPlayer:
+		match nodeType:
+			encounters.WILD:
+				GlobalPlayer.current_encounter_type = "WILD"
+			encounters.TRAINER:
+				GlobalPlayer.current_encounter_type = "TRAINER"
+			encounters.MYSTERY:
+				GlobalPlayer.current_encounter_type = "MYSTERY"
+			encounters.SHOP:
+				GlobalPlayer.current_encounter_type = "SHOP"
+			encounters.REGIONAL_CHAMPION:
+				GlobalPlayer.current_encounter_type = "REGIONAL_CHAMPION"
+			_:
+				GlobalPlayer.current_encounter_type = "WILD"
+	
 	var scene = load(getEncounterInfo().scene).instantiate()
 	parent.add_child(scene)
 

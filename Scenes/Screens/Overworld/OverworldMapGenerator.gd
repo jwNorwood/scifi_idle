@@ -15,7 +15,7 @@ var map_data: Dictionary = {}
 var node_positions: Dictionary = {}
 var connections: Array[Dictionary] = []
 
-enum encounters { WILD, TRAINER, MYSTERY, SHOP } 
+enum encounters { WILD, TRAINER, MYSTERY, SHOP, REGIONAL_CHAMPION } 
 
 signal map_generated(map_data: Dictionary)
 signal node_positioned(node_id: int, position: Vector2)
@@ -106,9 +106,22 @@ func _generate_node_structure():
 		var current_layer_nodes: Array[int] = []
 		
 		for node_index in range(nodes_in_layer):
+			var encounter_type: String
+			
+			# Check if this is the final layer (just before end node)
+			if layer == layers:
+				# Final layer: make at least one Regional Champion, others can be random
+				if node_index == 0:
+					encounter_type = "REGIONAL_CHAMPION"  # Guarantee at least one Regional Champion
+				else:
+					encounter_type = _get_random_encounter_type_for_final_layer()
+			else:
+				# Regular layers: no Regional Champions allowed
+				encounter_type = _get_random_encounter_type_excluding_champion()
+			
 			map_data[node_id] = {
 				"id": node_id,
-				"type": _get_random_encounter_type(),
+				"type": encounter_type,
 				"layer": layer,
 				"children": []
 			}
@@ -135,6 +148,20 @@ func _generate_node_structure():
 func _get_random_encounter_type() -> String:
 	"""Get a random encounter type with weighted probabilities"""
 	var rand = randf()
+	if rand < 0.4:
+		return "WILD"
+	elif rand < 0.65:
+		return "TRAINER"
+	elif rand < 0.8:
+		return "MYSTERY"
+	elif rand < 0.95:
+		return "SHOP"
+	else:
+		return "REGIONAL_CHAMPION"
+
+func _get_random_encounter_type_excluding_champion() -> String:
+	"""Get a random encounter type excluding Regional Champions (for regular layers)"""
+	var rand = randf()
 	if rand < 0.5:
 		return "WILD"
 	elif rand < 0.75:
@@ -143,6 +170,20 @@ func _get_random_encounter_type() -> String:
 		return "MYSTERY"
 	else:
 		return "SHOP"
+
+func _get_random_encounter_type_for_final_layer() -> String:
+	"""Get a random encounter type for final layer (can include Regional Champions)"""
+	var rand = randf()
+	if rand < 0.25:
+		return "WILD"
+	elif rand < 0.45:
+		return "TRAINER"
+	elif rand < 0.60:
+		return "MYSTERY"
+	elif rand < 0.75:
+		return "SHOP"
+	else:
+		return "REGIONAL_CHAMPION"  # Higher chance in final layer
 
 func _connect_layers(previous_nodes: Array[int], current_nodes: Array[int]):
 	"""Create connections between two layers ensuring every node is reachable"""

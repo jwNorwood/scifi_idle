@@ -24,7 +24,7 @@ var spawn_location: Vector2
 var encounter_nodes: Dictionary = {}  # node_id -> Encounter instance
 var map_data: Dictionary = {}
 
-enum encounters { WILD, TRAINER, MYSTERY, SHOP }
+enum encounters { WILD, TRAINER, MYSTERY, SHOP, REGIONAL_CHAMPION }
 
 func _ready():
 	_setup_map_generator()
@@ -118,6 +118,8 @@ func _convert_string_to_enum(encounter_type: String) -> int:
 			return encounters.MYSTERY
 		"SHOP":
 			return encounters.SHOP
+		"REGIONAL_CHAMPION":
+			return encounters.REGIONAL_CHAMPION
 		"START", "END":
 			return encounters.WILD  # Default for special nodes
 		_:

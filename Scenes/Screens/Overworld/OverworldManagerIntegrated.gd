@@ -14,7 +14,7 @@ var map_generator: OverworldMapGenerator
 @export var max_nodes_per_layer: int = 4
 @export var layer_height: int = 120
 @export var horizontal_spacing: int = 150
-@export var encounter_types: Array[String] = ["WILD", "TRAINER", "MYSTERY", "SHOP"]
+@export var encounter_types: Array[String] = ["WILD", "TRAINER", "MYSTERY", "SHOP", "REGIONAL_CHAMPION"]
 
 # Scene references (using unique names from existing scene)
 @onready var map: Control = %Map
@@ -75,6 +75,8 @@ func create_encounter_from_data(node_data: Dictionary) -> Encounter:
 			encounter_type = Encounter.encounters.MYSTERY
 		"SHOP":
 			encounter_type = Encounter.encounters.SHOP
+		"REGIONAL_CHAMPION":
+			encounter_type = Encounter.encounters.REGIONAL_CHAMPION
 		_:
 			encounter_type = Encounter.encounters.WILD
 	
@@ -262,6 +264,8 @@ func get_encounter_description(encounter: Encounter) -> String:
 			return "A mysterious event unfolds..."
 		Encounter.encounters.SHOP:
 			return "A traveling merchant offers their wares."
+		Encounter.encounters.REGIONAL_CHAMPION:
+			return "A Regional Champion with a powerful team of 5 pets stands ready to test your skills!"
 		_:
 			return "An unknown encounter."
 

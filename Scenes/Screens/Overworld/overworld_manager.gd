@@ -25,7 +25,7 @@ var levelTree = {
 	"id": 0,
 	}
 
-enum encounters { WILD, TRAINER, MYSTERY, SHOP } 
+enum encounters { WILD, TRAINER, MYSTERY, SHOP, REGIONAL_CHAMPION } 
 
 var end = {
 	"type": "end",
