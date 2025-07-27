@@ -3,6 +3,7 @@ extends Node
 @onready var rewardModal = %RewardModal
 @onready var parent = $".."
 @onready var exitToHome = %Exit
+@onready var dialogue = %Dialogue
 
 # Combat participants
 @onready var player_combat: Player = get_tree().get_first_node_in_group("player")
@@ -11,6 +12,7 @@ extends Node
 var expToReward: int = 1
 var defeated_wild_pets: Array[Pet] = []
 var game_ended: bool = false  # Flag to prevent multiple reward modal calls
+var combat_started: bool = false  # Flag to track if combat has actually started
 
 # Available enemy pets for random encounters
 var wild_pet_pool: Array[Pet] = []
@@ -22,9 +24,13 @@ func _ready():
 func _setup_combat():
 	"""Initialize combat with player's actual team and random enemy"""
 	game_ended = false  # Reset game ended flag for new combat
+	combat_started = false
 	_create_wild_pet_pool()
 	_setup_player_team()
 	_setup_enemy_team()
+	
+	# Show opening dialogue
+	_show_opening_dialogue()
 
 func _create_wild_pet_pool():
 	"""Create a pool of wild pets for random encounters"""
@@ -137,9 +143,9 @@ func onGameEnd(victory):
 	EventBus.player_experience_change.emit(expToReward)
 	
 	if victory:
-		_handle_victory_rewards()
+		_show_victory_dialogue()
 	else:
-		_handle_defeat()
+		_show_defeat_dialogue()
 	
 	exitToHome.show()
 
@@ -195,3 +201,94 @@ func returnToOverworld():
 
 func _on_exit_pressed():
 	returnToOverworld()
+
+func _show_opening_dialogue():
+	"""Show dialogue at the start of combat"""
+	if not dialogue:
+		print("Warning: Dialogue component not found!")
+		_start_combat()
+		return
+	
+	var enemy_name = "Wild Creature"
+	# Get enemy name from the enemy team
+	if enemy_combat and not enemy_combat.team.is_empty():
+		var enemy_pet = enemy_combat.team[0] as Pet
+		if enemy_pet:
+			enemy_name = enemy_pet.name
+	
+	var opening_messages: Array[String] = [
+		"[center][color=yellow]A wild " + enemy_name + " appears![/color][/center]",
+		"[center][color=cyan]Prepare for battle![/color][/center]"
+	]
+	
+	# Connect to dialogue finished signal
+	if not dialogue.dialogue_finished.is_connected(_on_opening_dialogue_finished):
+		dialogue.dialogue_finished.connect(_on_opening_dialogue_finished)
+	
+	dialogue.show_messages(opening_messages, 1.5)
+
+func _on_opening_dialogue_finished():
+	"""Called when opening dialogue finishes"""
+	# Disconnect the signal
+	if dialogue.dialogue_finished.is_connected(_on_opening_dialogue_finished):
+		dialogue.dialogue_finished.disconnect(_on_opening_dialogue_finished)
+	
+	_start_combat()
+
+func _start_combat():
+	"""Start the actual combat after opening dialogue"""
+	combat_started = true
+	print("Combat started!")
+	# Combat will proceed naturally from here
+
+func _show_victory_dialogue():
+	"""Show dialogue when player wins"""
+	if not dialogue:
+		print("Warning: Dialogue component not found!")
+		_handle_victory_rewards()
+		return
+	
+	var victory_messages: Array[String] = [
+		"[center][color=green]Victory![/color][/center]",
+		"[center][color=lime]You defeated the wild creature![/color][/center]"
+	]
+	
+	# Connect to dialogue finished signal
+	if not dialogue.dialogue_finished.is_connected(_on_victory_dialogue_finished):
+		dialogue.dialogue_finished.connect(_on_victory_dialogue_finished)
+	
+	dialogue.show_messages(victory_messages, 1.5)
+
+func _on_victory_dialogue_finished():
+	"""Called when victory dialogue finishes"""
+	# Disconnect the signal
+	if dialogue.dialogue_finished.is_connected(_on_victory_dialogue_finished):
+		dialogue.dialogue_finished.disconnect(_on_victory_dialogue_finished)
+	
+	_handle_victory_rewards()
+
+func _show_defeat_dialogue():
+	"""Show dialogue when player loses"""
+	if not dialogue:
+		print("Warning: Dialogue component not found!")
+		_handle_defeat()
+		return
+	
+	var defeat_messages: Array[String] = [
+		"[center][color=red]Defeat...[/color][/center]",
+		"[center][color=orange]Your team was overwhelmed![/color][/center]"
+	]
+	
+	# Connect to dialogue finished signal
+	if not dialogue.dialogue_finished.is_connected(_on_defeat_dialogue_finished):
+		dialogue.dialogue_finished.connect(_on_defeat_dialogue_finished)
+	
+	dialogue.show_messages(defeat_messages, 1.5)
+
+func _on_defeat_dialogue_finished():
+	"""Called when defeat dialogue finishes"""
+	# Disconnect the signal
+	if dialogue.dialogue_finished.is_connected(_on_defeat_dialogue_finished):
+		dialogue.dialogue_finished.disconnect(_on_defeat_dialogue_finished)
+	
+	_handle_defeat()

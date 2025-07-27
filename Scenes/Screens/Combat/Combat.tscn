@@ -30,15 +30,13 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Exit to home"
 
-[node name="Dialogue" parent="GameUi" instance=ExtResource("7_a6pxh")]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-
 [node name="RewardModal" parent="GameUi" instance=ExtResource("7_karwc")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+
+[node name="Dialogue" parent="." instance=ExtResource("7_a6pxh")]
+unique_name_in_owner = true
 
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
