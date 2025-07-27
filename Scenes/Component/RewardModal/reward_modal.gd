@@ -93,8 +93,8 @@ func _add_pet_to_player_team(pet: Pet):
 		print("Warning: GlobalPlayer not found!")
 		return
 	
-	# Check if player's team has space (assuming max 3 pets in active team)
-	if GlobalPlayer.playerTeam.size() < 3:
+	# Check if player's team has space (max 5 pets in active team)
+	if GlobalPlayer.playerTeam.size() < 5:
 		GlobalPlayer.playerTeam.append(pet)
 		print("Pet added to active team: ", pet.name)
 	else:

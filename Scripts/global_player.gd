@@ -23,7 +23,7 @@ func _init_test_data():
 			if ResourceLoader.exists(pet_path):
 				var pet = load(pet_path)
 				if pet:
-					if playerTeam.size() < 3:
+					if playerTeam.size() < 5:
 						playerTeam.append(pet)
 					else:
 						playerTeamInventory.append(pet)

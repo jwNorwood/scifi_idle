@@ -173,7 +173,7 @@ func _handle_defeat():
 func _add_pet_to_team_directly(pet: Pet):
 	"""Fallback method to add pet directly to team"""
 	if GlobalPlayer:
-		if GlobalPlayer.playerTeam.size() < 3:
+		if GlobalPlayer.playerTeam.size() < 5:
 			GlobalPlayer.playerTeam.append(pet)
 		else:
 			GlobalPlayer.playerTeamInventory.append(pet)
