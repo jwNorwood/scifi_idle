@@ -33,40 +33,41 @@ func _ready():
 	_animate_screen_entrance()
 
 func _animate_screen_entrance():
-	"""Animate the pet options sliding in for a nice entrance effect"""
+	"""Animate all pet options sliding in from bottom to top"""
 	# Wait for one frame to ensure layout is calculated
 	await get_tree().process_frame
 	
 	# Store original positions
-	var pet1_original_x = pet1_option.position.x
+	var pet1_original_y = pet1_option.position.y
 	var pet2_original_y = pet2_option.position.y
-	var pet3_original_x = pet3_option.position.x
+	var pet3_original_y = pet3_option.position.y
 	
-	# Start with pet options slightly transparent and offset
+	# Start with pet options slightly transparent and offset to bottom
 	pet1_option.modulate.a = 0.0
 	pet2_option.modulate.a = 0.0
 	pet3_option.modulate.a = 0.0
 	
-	# Use offset properties for Control nodes
-	pet1_option.position.x = pet1_original_x - 50
-	pet2_option.position.y = pet2_original_y - 30
-	pet3_option.position.x = pet3_original_x + 50
+	# Move all pets down from their original positions (bottom to top animation)
+	var offset_distance = 80  # Distance to slide from
+	pet1_option.position.y = pet1_original_y + offset_distance
+	pet2_option.position.y = pet2_original_y + offset_distance
+	pet3_option.position.y = pet3_original_y + offset_distance
 	
-	# Animate them sliding in with staggered timing
+	# Animate them sliding in from bottom with staggered timing
 	var tween = create_tween()
 	tween.set_parallel(true)
 	
-	# Pet 1 slides in from left
+	# Pet 1 slides in from bottom
 	tween.tween_property(pet1_option, "modulate:a", 1.0, 0.5).set_delay(0.2)
-	tween.tween_property(pet1_option, "position:x", pet1_original_x, 0.5).set_delay(0.2)
+	tween.tween_property(pet1_option, "position:y", pet1_original_y, 0.5).set_delay(0.2)
 	
-	# Pet 2 slides in from top
+	# Pet 2 slides in from bottom
 	tween.tween_property(pet2_option, "modulate:a", 1.0, 0.5).set_delay(0.4)
 	tween.tween_property(pet2_option, "position:y", pet2_original_y, 0.5).set_delay(0.4)
 	
-	# Pet 3 slides in from right
+	# Pet 3 slides in from bottom
 	tween.tween_property(pet3_option, "modulate:a", 1.0, 0.5).set_delay(0.6)
-	tween.tween_property(pet3_option, "position:x", pet3_original_x, 0.5).set_delay(0.6)
+	tween.tween_property(pet3_option, "position:y", pet3_original_y, 0.5).set_delay(0.6)
 
 func _show_welcome_message():
 	"""Show a welcome message for new players"""
