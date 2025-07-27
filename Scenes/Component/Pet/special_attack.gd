@@ -4,7 +4,7 @@ extends State
 @onready var attack = %Attack
 
 func enter() -> void:
-	timer.start(parent.pet.speed)
+	timer.start(parent.pet.speed / 2.0)  # Double attack speed
 	super()
 	
 func exit() -> void:

@@ -148,9 +148,9 @@ func _setup_enemy_team():
 		print("Warning: No enemy combat node found!")
 		return
 	
-	# Generate 1-2 random wild pets for the enemy
+	# Generate exactly 1 wild pet for the enemy (simplified combat)
 	var enemy_team: Array[Resource] = []
-	var team_size = randi_range(1, 2)
+	var team_size = 1  # Always 1 pet for both wild encounters and team battles
 	
 	# Clear previous defeated pets list
 	defeated_wild_pets.clear()
@@ -212,35 +212,30 @@ func _handle_victory_rewards():
 	"""Handle rewards for winning combat"""
 	var gold_reward = randi_range(10, 25)  # Random gold between 10-25
 	
-	# In wild combat, player can capture defeated pets
+	# Always reward a pet after combat victory
+	var captured_pets: Array[Pet] = []
+	
 	if not defeated_wild_pets.is_empty():
-		# Chance to capture each defeated pet (70% chance per pet)
-		var captured_pets: Array[Pet] = []
-		
+		# Guarantee capture of all defeated pets (100% capture rate)
 		for wild_pet in defeated_wild_pets:
-			var capture_chance = randf()
-			if capture_chance <= 0.7:  # 70% capture rate
-				captured_pets.append(wild_pet)
-				print("Captured wild pet: ", wild_pet.name)
-			else:
-				print("Wild pet escaped: ", wild_pet.name)
-		
-		# Show reward modal with captured pets
-		if not captured_pets.is_empty() or gold_reward > 0:
-			if rewardModal.has_method("setPetRewards"):
-				rewardModal.setPetRewards(captured_pets, gold_reward)
-			else:
-				# Fallback for old reward system
-				rewardModal.show()
-				# Add pets directly if modal doesn't support new system
-				for pet in captured_pets:
-					_add_pet_to_team_directly(pet)
-				EventBus.player_gold_change.emit(gold_reward)
-		else:
-			rewardModal.show()
+			captured_pets.append(wild_pet)
+			print("Captured wild pet: ", wild_pet.name)
 	else:
-		# No wild pets to capture, just show gold reward
+		# If no defeated pets (shouldn't happen), create a bonus pet
+		print("No defeated pets found, generating bonus reward pet")
+		var bonus_pet = _get_random_wild_pet()
+		captured_pets.append(bonus_pet)
+		print("Bonus reward pet: ", bonus_pet.name)
+	
+	# Always show reward modal with captured pets and gold
+	if rewardModal.has_method("setPetRewards"):
+		rewardModal.setPetRewards(captured_pets, gold_reward)
+	else:
+		# Fallback for old reward system
 		rewardModal.show()
+		# Add pets directly if modal doesn't support new system
+		for pet in captured_pets:
+			_add_pet_to_team_directly(pet)
 		EventBus.player_gold_change.emit(gold_reward)
 
 func _handle_defeat():
