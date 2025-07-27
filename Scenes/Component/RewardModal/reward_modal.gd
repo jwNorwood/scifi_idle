@@ -12,6 +12,11 @@ func closeModal():
 	visible = false
 	
 func openModal():
+	# Don't open if already visible
+	if visible:
+		print("Modal already open, ignoring duplicate open call")
+		return
+		
 	print("open modal")
 	visible = true
 
@@ -22,6 +27,11 @@ func setRewards(newRewards):
 
 func setPetRewards(pets: Array[Pet], gold: int = 10):
 	"""Set pet rewards from combat victory"""
+	# Don't set rewards if modal is already visible
+	if visible:
+		print("Reward modal already open, ignoring duplicate call")
+		return
+		
 	pet_rewards = pets
 	gold_reward = gold
 	_display_pet_rewards()

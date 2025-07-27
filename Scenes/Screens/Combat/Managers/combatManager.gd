@@ -10,6 +10,7 @@ extends Node
 
 var expToReward: int = 1
 var defeated_wild_pets: Array[Pet] = []
+var game_ended: bool = false  # Flag to prevent multiple reward modal calls
 
 # Available enemy pets for random encounters
 var wild_pet_pool: Array[Pet] = []
@@ -20,6 +21,7 @@ func _ready():
 
 func _setup_combat():
 	"""Initialize combat with player's actual team and random enemy"""
+	game_ended = false  # Reset game ended flag for new combat
 	_create_wild_pet_pool()
 	_setup_player_team()
 	_setup_enemy_team()
@@ -125,6 +127,12 @@ func _process(_delta):
 	pass
 
 func onGameEnd(victory):
+	# Prevent multiple calls to onGameEnd
+	if game_ended:
+		print("Game already ended, ignoring duplicate call")
+		return
+	
+	game_ended = true
 	print("victory ", victory)
 	EventBus.player_experience_change.emit(expToReward)
 	
