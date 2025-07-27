@@ -1,41 +1,191 @@
-[gd_scene load_steps=2 format=3 uid="uid://bshjive2cjmsl"]
+[gd_scene load_steps=7 format=3 uid="uid://bshjive2cjmsl"]
 
 [ext_resource type="Script" uid="uid://1fgmy2pmoj3n" path="res://Scenes/Screens/MainMenu/main_menu.gd" id="1_d1jyp"]
 
-[node name="MainMenu" type="Node"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.05, 0.05, 0.15, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_title_bg"]
+bg_color = Color(0.1, 0.1, 0.2, 0.8)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.4, 0.4, 0.6, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(0.2, 0.2, 0.35, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.4, 0.6, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
+bg_color = Color(0.1, 0.1, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 0.7, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_normal"]
+bg_color = Color(0.15, 0.15, 0.25, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.5, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_d1jyp")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_right = 93.0
-offset_bottom = 648.0
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 36
+[node name="MainContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 8
-
-[node name="NewGame" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "New Game"
-
-[node name="Continue" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Continue"
-
-[node name="Atlas" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Atlas"
-
-[node name="Settings" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Settings"
-
-[node name="Control" type="Control" parent="HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MainContainer"]
 layout_mode = 2
 
-[connection signal="pressed" from="HBoxContainer/MarginContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
-[connection signal="pressed" from="HBoxContainer/MarginContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="TitleSection" type="VBoxContainer" parent="MainContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TitleBackground" type="Panel" parent="MainContainer/CenterContainer/VBoxContainer/TitleSection"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_title_bg")
+
+[node name="TitleContainer" type="MarginContainer" parent="MainContainer/CenterContainer/VBoxContainer/TitleSection/TitleBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="MainContainer/CenterContainer/VBoxContainer/TitleSection/TitleBackground/TitleContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="GameTitle" type="Label" parent="MainContainer/CenterContainer/VBoxContainer/TitleSection/TitleBackground/TitleContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "SciFi Idle"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="MainContainer/CenterContainer/VBoxContainer/TitleSection/TitleBackground/TitleContainer/VBox"]
+modulate = Color(0.8, 0.8, 0.9, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Pet Training Adventure"
+horizontal_alignment = 1
+
+[node name="MenuButtons" type="VBoxContainer" parent="MainContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="NewGame" type="Button" parent="MainContainer/CenterContainer/VBoxContainer/MenuButtons"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
+text = "🎮 New Game"
+
+[node name="Continue" type="Button" parent="MainContainer/CenterContainer/VBoxContainer/MenuButtons"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
+text = "📁 Continue"
+
+[node name="Atlas" type="Button" parent="MainContainer/CenterContainer/VBoxContainer/MenuButtons"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
+text = "🗺️ Atlas"
+
+[node name="Settings" type="Button" parent="MainContainer/CenterContainer/VBoxContainer/MenuButtons"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
+text = "⚙️ Settings"
+
+[node name="FooterSection" type="VBoxContainer" parent="MainContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VersionLabel" type="Label" parent="MainContainer/CenterContainer/VBoxContainer/FooterSection"]
+modulate = Color(0.6, 0.6, 0.7, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Version 1.0.0"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="MainContainer/CenterContainer/VBoxContainer/FooterSection"]
+modulate = Color(0.7, 0.8, 0.9, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Ready to begin your adventure!"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="MainContainer/CenterContainer/VBoxContainer/MenuButtons/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="MainContainer/CenterContainer/VBoxContainer/MenuButtons/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="MainContainer/CenterContainer/VBoxContainer/MenuButtons/Atlas" to="." method="_on_atlas_pressed"]
+[connection signal="pressed" from="MainContainer/CenterContainer/VBoxContainer/MenuButtons/Settings" to="." method="_on_settings_pressed"]
