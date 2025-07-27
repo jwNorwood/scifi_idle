@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Pet" load_steps=3 format=3 uid="uid://jpgfyuqnq5kg"]
+
+[ext_resource type="Script" uid="uid://b0efn4rolnv85" path="res://Resources/Pet/pet.gd" id="1_flame"]
+[ext_resource type="Texture2D" uid="uid://ctlxdun2rg80" path="res://Assets/Pet/1.png" id="2_flame"]
+
+[resource]
+script = ExtResource("1_flame")
+name = "Flametail"
+attack = 15.0
+health = 80
+speed = 12.0
+mana_max = 15
+mana_attack = 3
+mana_start = 15
+texture_card = ExtResource("2_flame")
+special_attacks = Array[Resource]([])
+active_special_attack = null

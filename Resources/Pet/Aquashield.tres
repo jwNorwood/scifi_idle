@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Pet" load_steps=3 format=3 uid="uid://cerhgwvror6lh"]
+
+[ext_resource type="Script" uid="uid://b0efn4rolnv85" path="res://Resources/Pet/pet.gd" id="1_aqua"]
+[ext_resource type="Texture2D" uid="uid://bjdxe7xdgqjvf" path="res://Assets/Pet/2.png" id="2_aqua"]
+
+[resource]
+script = ExtResource("1_aqua")
+name = "Aquashield"
+attack = 10.0
+health = 120
+speed = 8.0
+mana_max = 20
+mana_attack = 2
+mana_start = 20
+texture_card = ExtResource("2_aqua")
+special_attacks = Array[Resource]([])
+active_special_attack = null

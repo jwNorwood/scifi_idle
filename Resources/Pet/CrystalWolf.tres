@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Pet" load_steps=3 format=3 uid="uid://bdl846tsdypi6"]
+
+[ext_resource type="Script" uid="uid://b0efn4rolnv85" path="res://Resources/Pet/pet.gd" id="1_crystal"]
+[ext_resource type="Texture2D" uid="uid://cc6n05tge1xx5" path="res://Assets/Pet/7.png" id="2_crystal"]
+
+[resource]
+script = ExtResource("1_crystal")
+name = "Crystal Wolf"
+attack = 11.0
+health = 70
+speed = 16.0
+mana_max = 14
+mana_attack = 3
+mana_start = 14
+texture_card = ExtResource("2_crystal")
+special_attacks = Array[Resource]([])
+active_special_attack = null

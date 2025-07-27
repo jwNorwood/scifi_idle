@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Pet" load_steps=3 format=3 uid="uid://bw8x4lam7n2q1"]
+
+[ext_resource type="Script" uid="uid://b0efn4rolnv85" path="res://Resources/Pet/pet.gd" id="1_forest"]
+[ext_resource type="Texture2D" uid="uid://dmek4g7ne4hny" path="res://Assets/Pet/4.png" id="2_forest"]
+
+[resource]
+script = ExtResource("1_forest")
+name = "Forest Sprite"
+attack = 8.0
+health = 60
+speed = 14.0
+mana_max = 10
+mana_attack = 2
+mana_start = 10
+texture_card = ExtResource("2_forest")
+special_attacks = Array[Resource]([])
+active_special_attack = null

@@ -26,75 +26,14 @@ func _setup_combat():
 
 func _create_wild_pet_pool():
 	"""Create a pool of wild pets for random encounters"""
-	# Wild Pet 1: Forest Sprite (Basic type)
-	var wild1 = Pet.new()
-	wild1.name = "Forest Sprite"
-	wild1.attack = 8.0
-	wild1.health = 60
-	wild1.speed = 14.0
-	wild1.mana_max = 10
-	wild1.mana_attack = 2
-	wild1.mana_start = 10
-	
-	# Wild Pet 2: Rock Golem (Earth type)
-	var wild2 = Pet.new()
-	wild2.name = "Rock Golem"
-	wild2.attack = 12.0
-	wild2.health = 90
-	wild2.speed = 6.0
-	wild2.mana_max = 8
-	wild2.mana_attack = 3
-	wild2.mana_start = 8
-	
-	# Wild Pet 3: Wind Falcon (Air type)
-	var wild3 = Pet.new()
-	wild3.name = "Wind Falcon"
-	wild3.attack = 10.0
-	wild3.health = 50
-	wild3.speed = 20.0
-	wild3.mana_max = 12
-	wild3.mana_attack = 2
-	wild3.mana_start = 12
-	
-	# Wild Pet 4: Crystal Wolf (Ice type)
-	var wild4 = Pet.new()
-	wild4.name = "Crystal Wolf"
-	wild4.attack = 11.0
-	wild4.health = 70
-	wild4.speed = 16.0
-	wild4.mana_max = 14
-	wild4.mana_attack = 3
-	wild4.mana_start = 14
-	
-	# Wild Pet 5: Lava Salamander (Fire type)
-	var wild5 = Pet.new()
-	wild5.name = "Lava Salamander"
-	wild5.attack = 13.0
-	wild5.health = 65
-	wild5.speed = 12.0
-	wild5.mana_max = 16
-	wild5.mana_attack = 4
-	wild5.mana_start = 16
-	
-	# Try to load textures for wild pets (reuse existing assets)
-	_try_load_wild_pet_textures([wild1, wild2, wild3, wild4, wild5])
+	# Load pet resources from files
+	var wild1 = load("res://Resources/Pet/ForestSprite.tres") as Pet
+	var wild2 = load("res://Resources/Pet/RockGolem.tres") as Pet
+	var wild3 = load("res://Resources/Pet/WindFalcon.tres") as Pet
+	var wild4 = load("res://Resources/Pet/CrystalWolf.tres") as Pet
+	var wild5 = load("res://Resources/Pet/LavaSalamander.tres") as Pet
 	
 	wild_pet_pool = [wild1, wild2, wild3, wild4, wild5]
-
-func _try_load_wild_pet_textures(pets: Array[Pet]):
-	"""Try to load textures for wild pets"""
-	var texture_paths = [
-		"res://Assets/Pet/4.png",
-		"res://Assets/Pet/5.png", 
-		"res://Assets/Pet/6.png",
-		"res://Assets/Pet/7.png",
-		"res://Assets/Pet/8.png"
-	]
-	
-	for i in range(min(pets.size(), texture_paths.size())):
-		var texture = load(texture_paths[i]) as Texture2D
-		if texture:
-			pets[i].texture_card = texture
 
 func _setup_player_team():
 	"""Set up player team from GlobalPlayer data"""
@@ -120,19 +59,7 @@ func _setup_player_team():
 
 func _create_fallback_player_team():
 	"""Create a fallback team if player has no pets"""
-	var fallback_pet = Pet.new()
-	fallback_pet.name = "Basic Pet"
-	fallback_pet.attack = 10.0
-	fallback_pet.health = 80
-	fallback_pet.speed = 10.0
-	fallback_pet.mana_max = 10
-	fallback_pet.mana_attack = 2
-	fallback_pet.mana_start = 10
-	
-	# Try to load a texture
-	var texture = load("res://Assets/Pet/1.png") as Texture2D
-	if texture:
-		fallback_pet.texture_card = texture
+	var fallback_pet = load("res://Resources/Pet/BasicPet.tres") as Pet
 	
 	# Convert to Array[Resource] for compatibility
 	var resource_team: Array[Resource] = [fallback_pet as Resource]

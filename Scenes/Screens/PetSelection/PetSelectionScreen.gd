@@ -102,53 +102,12 @@ func _setup_styles():
 
 func _create_starter_pets():
 	"""Create the three starter pet options"""
-	# Pet 1: Flametail (Fire-type, balanced)
-	var pet1 = Pet.new()
-	pet1.name = "Flametail"
-	pet1.attack = 15.0
-	pet1.health = 80
-	pet1.speed = 12.0
-	pet1.mana_max = 15
-	pet1.mana_attack = 3
-	pet1.mana_start = 15
-	
-	# Pet 2: Aquashield (Water-type, tanky)
-	var pet2 = Pet.new()
-	pet2.name = "Aquashield"
-	pet2.attack = 10.0
-	pet2.health = 120
-	pet2.speed = 8.0
-	pet2.mana_max = 20
-	pet2.mana_attack = 2
-	pet2.mana_start = 20
-	
-	# Pet 3: Voltdash (Electric-type, fast)
-	var pet3 = Pet.new()
-	pet3.name = "Voltdash"
-	pet3.attack = 12.0
-	pet3.health = 90
-	pet3.speed = 18.0
-	pet3.mana_max = 12
-	pet3.mana_attack = 4
-	pet3.mana_start = 12
-	
-	# Try to load textures from existing assets
-	_try_load_pet_textures([pet1, pet2, pet3])
+	# Load starter pets from resources
+	var pet1 = load("res://Resources/Pet/Flametail.tres") as Pet
+	var pet2 = load("res://Resources/Pet/Aquashield.tres") as Pet  
+	var pet3 = load("res://Resources/Pet/Voltdash.tres") as Pet
 	
 	starter_pets = [pet1, pet2, pet3]
-
-func _try_load_pet_textures(pets: Array[Pet]):
-	"""Try to load pet textures from the Assets/Pet folder"""
-	var texture_paths = [
-		"res://Assets/Pet/1.png",
-		"res://Assets/Pet/2.png", 
-		"res://Assets/Pet/3.png"
-	]
-	
-	for i in range(min(pets.size(), texture_paths.size())):
-		var texture = load(texture_paths[i]) as Texture2D
-		if texture:
-			pets[i].texture_card = texture
 
 func _setup_pet_display():
 	"""Set up the visual display of the three pets"""

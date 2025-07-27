@@ -67,23 +67,6 @@ func getEncounters():
 func moveToChildNodes():
 	return
 
-func drawArrows():
-	queue_redraw()
-
-func _draw():
-	var path = Color.TAN
-	if (childNodes.size() == 0):
-		return
-	for child in childNodes:
-		if (!child):
-			return
-		var center = getPosition()
-		var c = getNodeById(child.id)
-		if (!c):
-			return
-		var childCenter = c.getPosition()
-		draw_line(Vector2(0 , 0), Vector2(to_local(childCenter).x, to_local(childCenter).y), path, 4)
-
 func getNodeById(i):
 	var encounters = getEncounters()
 	for encounter in encounters:
@@ -105,8 +88,6 @@ func getRelativePosition(childPosition: Vector2):
 func getPosition():
 	return get_global_position()
 
-func _on_sleeping_state_changed():
-	drawArrows()
 
 func enterEncounter(parent: Node):
 	var scene = load(getEncounterInfo().scene).instantiate()

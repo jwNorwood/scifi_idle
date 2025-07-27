@@ -59,7 +59,6 @@ func _generate_and_display_map():
 	"""Generate the map and create visual nodes"""
 	map_data = map_generator.generate_overworld_map()
 	_create_encounter_nodes()
-	_draw_connections()
 
 func _on_map_generated(generated_map_data: Dictionary):
 	"""Handle map generation completion"""
@@ -123,14 +122,6 @@ func _convert_string_to_enum(encounter_type: String) -> int:
 			return encounters.WILD  # Default for special nodes
 		_:
 			return encounters.WILD
-
-func _draw_connections():
-	"""Draw visual connections between nodes"""
-	# This will be handled by the individual Encounter nodes
-	# Each node will draw lines to its children
-	for node_id in encounter_nodes.keys():
-		var encounter = encounter_nodes[node_id]
-		encounter.drawArrows()
 
 func _setup_player():
 	"""Setup player starting position and connections"""

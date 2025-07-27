@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Pet" load_steps=3 format=3 uid="uid://d1y6n3k8v5m2r"]
+
+[ext_resource type="Script" uid="uid://b0efn4rolnv85" path="res://Resources/Pet/pet.gd" id="1_wind"]
+[ext_resource type="Texture2D" uid="uid://cxvjep20vx2l7" path="res://Assets/Pet/6.png" id="2_wind"]
+
+[resource]
+script = ExtResource("1_wind")
+name = "Wind Falcon"
+attack = 10.0
+health = 50
+speed = 20.0
+mana_max = 12
+mana_attack = 2
+mana_start = 12
+texture_card = ExtResource("2_wind")
+special_attacks = Array[Resource]([])
+active_special_attack = null

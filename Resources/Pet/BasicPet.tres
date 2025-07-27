@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Pet" load_steps=3 format=3 uid="uid://dd3ay0p03tvd2"]
+
+[ext_resource type="Script" uid="uid://b0efn4rolnv85" path="res://Resources/Pet/pet.gd" id="1_basic"]
+[ext_resource type="Texture2D" uid="uid://ctlxdun2rg80" path="res://Assets/Pet/1.png" id="2_basic"]
+
+[resource]
+script = ExtResource("1_basic")
+name = "Basic Pet"
+attack = 10.0
+health = 80
+speed = 10.0
+mana_max = 10
+mana_attack = 2
+mana_start = 10
+texture_card = ExtResource("2_basic")
+special_attacks = Array[Resource]([])
+active_special_attack = null

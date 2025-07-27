@@ -1,9 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://c30rrpu02xnbm"]
+[gd_scene load_steps=6 format=3 uid="uid://c30rrpu02xnbm"]
 
 [ext_resource type="PackedScene" uid="uid://bqg5epfjqehj1" path="res://Scenes/Component/Player_Combat/player.tscn" id="1_mgmfq"]
-[ext_resource type="Resource" uid="uid://c7nn1snlqca1e" path="res://Resources/Pet/Test2Pet.tres" id="2_w8ikl"]
-[ext_resource type="Resource" uid="uid://b5y13n2nrk1qf" path="res://Resources/Pet/Test3Pet.tres" id="3_x2d47"]
-[ext_resource type="Resource" uid="uid://bkqkmjdycroj7" path="res://Resources/Pet/TestPet.tres" id="4_u4ych"]
 [ext_resource type="PackedScene" uid="uid://xe86a5b8y54o" path="res://Scenes/Screens/Combat/CombatUi.tscn" id="5_1tkos"]
 [ext_resource type="Script" uid="uid://cxfa6518f3085" path="res://Scenes/Screens/Combat/Managers/combatManager.gd" id="6_vsb8f"]
 [ext_resource type="PackedScene" uid="uid://e8euawp0v1a8" path="res://Scenes/Component/Dialogue/Dialogue.tscn" id="7_a6pxh"]
@@ -14,9 +11,6 @@
 [node name="Game Elements" type="Node" parent="."]
 
 [node name="Player" parent="Game Elements" groups=["player"] instance=ExtResource("1_mgmfq")]
-position = Vector2(404, 368)
-
-[node name="Player2" parent="Game Elements" groups=["player"] instance=ExtResource("1_mgmfq")]
 position = Vector2(404, 368)
 
 [node name="Enemy" parent="Game Elements" groups=["enemy"] instance=ExtResource("1_mgmfq")]

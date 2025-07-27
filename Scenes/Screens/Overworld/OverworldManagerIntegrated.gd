@@ -147,7 +147,7 @@ func _draw_connection_group(container: Node2D, from_encounter: Encounter, connec
 			path_line.add_point(point)
 		
 		# Style the path
-		path_line.width = 2.0
+		path_line.width = 6.0
 		path_line.default_color = Color(0.8, 0.8, 0.8, 0.7)  # Semi-transparent white
 		path_line.joint_mode = Line2D.LINE_JOINT_ROUND
 		path_line.begin_cap_mode = Line2D.LINE_CAP_ROUND

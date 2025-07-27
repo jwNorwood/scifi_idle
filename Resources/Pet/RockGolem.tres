@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Pet" load_steps=3 format=3 uid="uid://dax2m5r8t4p7w"]
+
+[ext_resource type="Script" uid="uid://b0efn4rolnv85" path="res://Resources/Pet/pet.gd" id="1_rock"]
+[ext_resource type="Texture2D" uid="uid://bjdqxe8j3vwbp" path="res://Assets/Pet/5.png" id="2_rock"]
+
+[resource]
+script = ExtResource("1_rock")
+name = "Rock Golem"
+attack = 12.0
+health = 90
+speed = 6.0
+mana_max = 8
+mana_attack = 3
+mana_start = 8
+texture_card = ExtResource("2_rock")
+special_attacks = Array[Resource]([])
+active_special_attack = null

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Pet" load_steps=3 format=3 uid="uid://b6va77exwwoct"]
+
+[ext_resource type="Script" uid="uid://b0efn4rolnv85" path="res://Resources/Pet/pet.gd" id="1_lava"]
+[ext_resource type="Texture2D" uid="uid://b1yiw13xtdjyb" path="res://Assets/Pet/8.png" id="2_lava"]
+
+[resource]
+script = ExtResource("1_lava")
+name = "Lava Salamander"
+attack = 13.0
+health = 65
+speed = 12.0
+mana_max = 16
+mana_attack = 4
+mana_start = 16
+texture_card = ExtResource("2_lava")
+special_attacks = Array[Resource]([])
+active_special_attack = null
