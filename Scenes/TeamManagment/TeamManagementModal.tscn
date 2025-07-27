@@ -1,13 +1,54 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwrb8fj7r5i2v"]
+[gd_scene load_steps=6 format=3 uid="uid://cwrb8fj7r5i2v"]
 
 [ext_resource type="Script" uid="uid://csxlf1qvimts2" path="res://Scenes/TeamManagment/team_management_modal.gd" id="1_2x8nj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1n6x9"]
-bg_color = Color(0.1, 0.1, 0.1, 0.8)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal_bg"]
+bg_color = Color(0.1, 0.1, 0.2, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.4, 0.4, 0.6, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(0.2, 0.2, 0.35, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.4, 0.6, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
+bg_color = Color(0.1, 0.1, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 0.7, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_normal"]
+bg_color = Color(0.15, 0.15, 0.25, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.5, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="TeamManagementModal" type="Control"]
 process_mode = 3
@@ -28,7 +69,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 1)
+color = Color(0, 0, 0, 0.7)
 
 [node name="ModalPanel" type="Panel" parent="."]
 layout_mode = 0
@@ -40,7 +81,7 @@ offset_left = -400.0
 offset_top = -300.0
 offset_right = 400.0
 offset_bottom = 300.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_1n6x9")
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal_bg")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ModalPanel"]
 layout_mode = 0
@@ -57,12 +98,21 @@ layout_mode = 2
 [node name="Title" type="Label" parent="ModalPanel/VBoxContainer/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Team Management"
+theme_override_colors/font_color = Color(0.9, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "👥 Team Management"
 horizontal_alignment = 1
 
 [node name="CloseButton" type="Button" parent="ModalPanel/VBoxContainer/Header"]
 layout_mode = 2
-text = "X"
+theme_override_colors/font_hover_color = Color(1, 0.3, 0.3, 1)
+theme_override_colors/font_color = Color(0.9, 0.9, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.8, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
+text = "✕"
 
 [node name="HSeparator" type="HSeparator" parent="ModalPanel/VBoxContainer"]
 layout_mode = 2
@@ -78,7 +128,9 @@ size_flags_vertical = 3
 
 [node name="ActiveTeamLabel" type="Label" parent="ModalPanel/VBoxContainer/Content/ActiveTeam"]
 layout_mode = 2
-text = "Active Team"
+theme_override_colors/font_color = Color(0.8, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "⚔️ Active Team"
 horizontal_alignment = 1
 
 [node name="ActiveTeamSlots" type="HBoxContainer" parent="ModalPanel/VBoxContainer/Content/ActiveTeam"]
@@ -96,7 +148,9 @@ size_flags_vertical = 3
 
 [node name="InventoryLabel" type="Label" parent="ModalPanel/VBoxContainer/Content/Inventory"]
 layout_mode = 2
-text = "Pet Inventory"
+theme_override_colors/font_color = Color(0.8, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "📦 Pet Inventory"
 horizontal_alignment = 1
 
 [node name="InventorySlots" type="HBoxContainer" parent="ModalPanel/VBoxContainer/Content/Inventory"]
@@ -113,12 +167,26 @@ layout_mode = 2
 [node name="SaveButton" type="Button" parent="ModalPanel/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Save Changes"
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.9, 0.9, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.8, 0.8, 0.9, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
+text = "💾 Save Changes"
 
 [node name="CancelButton" type="Button" parent="ModalPanel/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Cancel"
+theme_override_colors/font_hover_color = Color(1, 0.8, 0.8, 1)
+theme_override_colors/font_color = Color(0.9, 0.9, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.8, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
+text = "❌ Cancel"
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_clicked"]
 [connection signal="pressed" from="ModalPanel/VBoxContainer/Header/CloseButton" to="." method="_on_close_button_pressed"]
